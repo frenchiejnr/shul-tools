@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Ancestors;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Support\HebrewNameGenerator;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ShulMembers>
@@ -23,7 +24,7 @@ class ShulMembersFactory extends Factory
                 return fake()->name($attributes['gender']);
             },
             'hebrew_name' => function (array $attributes) {
-                return fake()->boolean(70) ? fake()->firstName($attributes['gender']) : fake()->firstName($attributes['gender']) . ' ' . fake()->firstName($attributes['gender']);
+                return HebrewNameGenerator::firstName($attributes['gender']);
             },
             'ancestors_id' => fake()->unique()->numberBetween(1, Ancestors::count()),
         ];
