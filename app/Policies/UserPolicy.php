@@ -11,7 +11,7 @@ class UserPolicy
     use HandlesAuthorization;
     public function create(User $user)
     {
-        return $user->email === 'susan@doe.com';
+        return $user->email === 'frenchiejnr@gmail.com';
     }
     public function edit(User $user, User $model)
     {

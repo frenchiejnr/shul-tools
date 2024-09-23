@@ -20,7 +20,13 @@ class DatabaseSeeder extends Seeder
             'email' => 'frenchiejnr@gmail.com',
             'password' => 'testpassword',
         ]);
+        User::factory()->create([
+            'name' => 'Binyomin Freedman Non Admin',
+            'email' => 'frenchiejnr2@gmail.com',
+            'password' => 'testpassword',
+        ]);
 
-        User::factory(100)->create();
+        User::factory(10)->create();
+        $this->call(ShulMembersSeeder::class);
     }
 }
