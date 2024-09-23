@@ -17,7 +17,7 @@ class ShulMembersSeeder extends Seeder
         //
 
         ShulMembers::factory()
-            ->count(10)
+            ->count(21)
             ->state(function (array $attributes) {
                 return [
                     'gender' => fake()->randomElement(['male', 'female']),

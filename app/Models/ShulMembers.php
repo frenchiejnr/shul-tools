@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ShulMembers extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'hebrew_name',
+        'gender',
+    ];
 }
