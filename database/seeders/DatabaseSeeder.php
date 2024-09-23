@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Ancestors;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(10)->create();
+        Ancestors::factory(21)->create();
         $this->call(ShulMembersSeeder::class);
     }
 }

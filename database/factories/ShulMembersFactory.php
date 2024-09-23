@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Ancestors;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,17 +19,13 @@ class ShulMembersFactory extends Factory
     {
         return [
             //
-            'name' => fake()->name(),
-            'hebrew_name' => function (array $attributes) {
-                $firstName = fake()->firstName($attributes['gender']);
-                $lastName = fake()->firstName();
-
-                if ($attributes['gender'] === 'male') {
-                    return "{$firstName} ben {$lastName}";
-                }
-
-                return "{$firstName} bas {$lastName}";
+            'name' => function (array $attributes) {
+                return fake()->name($attributes['gender']);
             },
+            'hebrew_name' => function (array $attributes) {
+                return fake()->boolean(70) ? fake()->firstName($attributes['gender']) : fake()->firstName($attributes['gender']) . ' ' . fake()->firstName($attributes['gender']);
+            },
+            'ancestors_id' => fake()->unique()->numberBetween(1, Ancestors::count()),
         ];
     }
 }
