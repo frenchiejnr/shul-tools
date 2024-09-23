@@ -21,6 +21,15 @@ watch(
         );
     }, 500)
 );
+
+function getHebrewName(member, parent) {
+    const prefix = member.gender === "male" ? "ben" : "bas";
+    return `${member.hebrew_name} ${prefix} ${
+        parent === "father"
+            ? member.fathers_hebrew_name
+            : member.mothers_hebrew_name
+    }`;
+}
 </script>
 
 <template>
@@ -52,15 +61,30 @@ watch(
                         <tbody class="divide-y divide-gray-200 bg-white">
                             <tr v-for="member in members.data" :key="member.id">
                                 <td class="whitespace-nowrap px-6 py-4">
-                                    <div class="flex items-center">
-                                        <div>
+                                    <div
+                                        class="flex items-center justify-between">
+                                        <div
+                                            class="text-sm font-medium text-gray-900">
+                                            {{ member.name }}
+                                        </div>
+                                        <div class="text-right">
                                             <div
                                                 class="text-sm font-medium text-gray-900">
-                                                {{ member.name }}
+                                                {{
+                                                    getHebrewName(
+                                                        member,
+                                                        "father"
+                                                    )
+                                                }}
                                             </div>
                                             <div
-                                                class="text-sm font-medium text-gray-900">
-                                                {{ member.hebrew_name }}
+                                                class="text-sm font-medium text-gray-400">
+                                                {{
+                                                    getHebrewName(
+                                                        member,
+                                                        "mother"
+                                                    )
+                                                }}
                                             </div>
                                         </div>
                                     </div>

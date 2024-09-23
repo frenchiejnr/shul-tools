@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ancestors;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,7 @@ class ShulMembersController extends Controller
     {
         return Inertia::render('Members/Index', [
             'members' => ShulMembers::query()
+                ->join('ancestors', 'shul_members.ancestors_id', '=', 'ancestors.id')
                 ->when(Request::input('search'), function ($query, $search) {
                     $query
                         ->where('name', 'like', "%{$search}%")
@@ -26,6 +28,8 @@ class ShulMembersController extends Controller
                     'name' => $member->name,
                     'hebrew_name' => $member->hebrew_name,
                     'gender' => $member->gender,
+                    'fathers_hebrew_name' => $member->fathers_hebrew_name,
+                    'mothers_hebrew_name' => $member->mothers_hebrew_name,
                     'id' => $member->id,
                     'can' => [
                         'edit' => Auth::user()->can('edit', $member)
