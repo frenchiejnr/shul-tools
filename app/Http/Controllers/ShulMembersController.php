@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ShulMembers;
+use App\Models\Ancestors;
 
 class ShulMembersController extends Controller
 {
@@ -55,13 +56,35 @@ class ShulMembersController extends Controller
     public function store()
     {
 
-        $attributes = Request::validate([
+        $data = Request::validate([
             'name' => ['required', 'max:255'],
             'hebrew_name' => ['required', 'max:255'],
             'gender' => ['required'],
+            'fathers_hebrew_name' => ['required', 'max:255'],
+            'mothers_hebrew_name' => ['required', 'max:255'],
+            'paternal_grandfather_hebrew_name' => ['required', 'max:255'],
+            'paternal_grandmother_hebrew_name' => ['required', 'max:255'],
+            'maternal_grandfather_hebrew_name' => ['required', 'max:255'],
+            'maternal_grandmother_hebrew_name' => ['required', 'max:255'],
         ]);
+        $ancestor = new Ancestors([
+            'fathers_hebrew_name' => $data['fathers_hebrew_name'],
+            'mothers_hebrew_name' => $data['mothers_hebrew_name'],
+            'paternal_grandfather_hebrew_name' => $data['paternal_grandfather_hebrew_name'],
+            'paternal_grandmother_hebrew_name' => $data['paternal_grandmother_hebrew_name'],
+            'maternal_grandfather_hebrew_name' => $data['maternal_grandfather_hebrew_name'],
+            'maternal_grandmother_hebrew_name' => $data['maternal_grandmother_hebrew_name'],
+        ]);
+        $ancestor->save();
 
-        ShulMembers::create($attributes);
+
+        $member = new ShulMembers([
+            'name' => $data['name'],
+            'hebrew_name' => $data['hebrew_name'],
+            'gender' => $data['gender'],
+        ]);
+        $member->ancestors_id = $ancestor->id;
+        $member->save();
 
         return redirect('/members');
     }
