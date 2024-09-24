@@ -93,7 +93,7 @@ function getHebrewName(member, parent) {
                                     v-if="member.can.edit"
                                     class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
                                     <Link
-                                        href="`/member/${member.id}/edit`"
+                                        :href="`/members/${member.id}/edit`"
                                         class="text-indigo-600 hover:text-indigo-900">
                                         Edit
                                     </Link>

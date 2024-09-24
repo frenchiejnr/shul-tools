@@ -14,4 +14,9 @@ class ShulMembers extends Model
         'hebrew_name',
         'gender',
     ];
+
+    public function ancestors()
+    {
+        return $this->hasOne(Ancestors::class, 'id', 'ancestors_id');
+    }
 }

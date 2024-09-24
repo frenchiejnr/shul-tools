@@ -25,5 +25,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/members', [ShulMembersController::class, 'index']);
     Route::get('/members/create', [ShulMembersController::class, 'create'])->can('create', 'App\Models\ShulMembers');
+    Route::get('/members/{member:id}/edit', [ShulMembersController::class, 'edit']);
     Route::post('/members', [ShulMembersController::class, 'store']);
+    Route::post('/members/{member:id}/edit', [ShulMembersController::class, 'editUser']);
 });
