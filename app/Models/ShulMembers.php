@@ -10,7 +10,8 @@ class ShulMembers extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'forenames',
+        'surname',
         'hebrew_name',
         'gender',
     ];

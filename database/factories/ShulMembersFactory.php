@@ -20,9 +20,10 @@ class ShulMembersFactory extends Factory
     {
         return [
             //
-            'name' => function (array $attributes) {
-                return fake()->name($attributes['gender']);
+            'forenames' => function (array $attributes) {
+                return HebrewNameGenerator::firstName($attributes['gender']);
             },
+            'surname' =>  fake()->lastName(),
             'hebrew_name' => function (array $attributes) {
                 return HebrewNameGenerator::firstName($attributes['gender']);
             },

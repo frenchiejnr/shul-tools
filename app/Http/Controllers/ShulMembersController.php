@@ -22,7 +22,8 @@ class ShulMembersController extends Controller
                 ->addSelect('shul_members.id as member_id')
                 ->when(Request::input('search'), function ($query, $search) {
                     $query
-                        ->where('name', 'like', "%{$search}%")
+                        ->where('forenames', 'like', "%{$search}%")
+                        ->orWhere('surname', 'like', "%{$search}%")
                         ->orWhere('hebrew_name', 'like', "%{$search}%")
                         ->orWhere('fathers_hebrew_name', 'like', "%{$search}%")
                         ->orWhere('mothers_hebrew_name', 'like', "%{$search}%");
@@ -30,7 +31,8 @@ class ShulMembersController extends Controller
                 ->paginate(10)
                 ->withQueryString()
                 ->through(fn($member) => [
-                    'name' => $member->name,
+                    'forenames' => $member->forenames,
+                    'surname' => $member->surname,
                     'hebrew_name' => $member->hebrew_name,
                     'gender' => $member->gender,
                     'fathers_hebrew_name' => $member->fathers_hebrew_name,
@@ -57,7 +59,8 @@ class ShulMembersController extends Controller
     {
 
         $data = Request::validate([
-            'name' => ['required', 'max:255'],
+            'forenames' => ['required', 'max:255'],
+            'surname' => ['required', 'max:255'],
             'hebrew_name' => ['required', 'max:255'],
             'gender' => ['required'],
             'fathers_hebrew_name' => ['required', 'max:255'],
@@ -79,7 +82,8 @@ class ShulMembersController extends Controller
 
 
         $member = new ShulMembers([
-            'name' => $data['name'],
+            'forenames' => $data['forenames'],
+            'surname' => $data['surname'],
             'hebrew_name' => $data['hebrew_name'],
             'gender' => $data['gender'],
         ]);
@@ -95,7 +99,8 @@ class ShulMembersController extends Controller
                 ->join('ancestors', 'shul_members.ancestors_id', '=', 'ancestors.id')
                 ->select(
                     'shul_members.id',
-                    'name',
+                    'forenames',
+                    'surname',
                     'hebrew_name',
                     'gender',
                     'ancestors.fathers_hebrew_name',
@@ -114,7 +119,8 @@ class ShulMembersController extends Controller
     {
         $member = ShulMembers::findOrFail($id);
         $data = Request::validate([
-            'name' => ['required', 'max:255'],
+            'forenames' => ['required', 'max:255'],
+            'surname' => ['required', 'max:255'],
             'hebrew_name' => ['required', 'max:255'],
             'gender' => ['required'],
             'fathers_hebrew_name' => ['required', 'max:255'],

@@ -65,7 +65,8 @@ function getHebrewName(member, parent) {
                                         class="flex items-center justify-between">
                                         <div
                                             class="text-sm font-medium text-gray-900">
-                                            {{ member.name }}
+                                            {{ member.forenames }}
+                                            {{ member.surname }}
                                         </div>
                                         <div class="text-right">
                                             <div

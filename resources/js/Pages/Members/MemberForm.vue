@@ -7,23 +7,43 @@ defineProps<{
 
 <template>
     <form @submit.prevent="submit" class="mx-auto mt-8 max-w-md">
-        <div class="mb-6">
-            <label
-                class="mb-2 block text-xs font-bold uppercase text-gray-700"
-                for="name">
-                Name
-            </label>
-            <input
-                v-model="form.name"
-                class="w-full border border-gray-400 p-2"
-                type="text"
-                name="name"
-                id="name"
-                required />
-            <div
-                v-if="form.errors.name"
-                class="mt-1 text-xs text-red-500"
-                v-text="form.errors.name"></div>
+        <div class="flex justify-between">
+            <div class="mb-6">
+                <label
+                    class="mb-2 block text-xs font-bold uppercase text-gray-700"
+                    for="forenames">
+                    Forenames
+                </label>
+                <input
+                    v-model="form.forenames"
+                    class="w-full border border-gray-400 p-2"
+                    type="text"
+                    name="forenames"
+                    id="forenames"
+                    required />
+                <div
+                    v-if="form.errors.forenames"
+                    class="mt-1 text-xs text-red-500"
+                    v-text="form.errors.forenames"></div>
+            </div>
+            <div class="mb-6">
+                <label
+                    class="mb-2 block text-xs font-bold uppercase text-gray-700"
+                    for="surname">
+                    Surname
+                </label>
+                <input
+                    v-model="form.surname"
+                    class="w-full border border-gray-400 p-2"
+                    type="text"
+                    name="surname"
+                    id="surname"
+                    required />
+                <div
+                    v-if="form.errors.surname"
+                    class="mt-1 text-xs text-red-500"
+                    v-text="form.errors.surname"></div>
+            </div>
         </div>
 
         <div class="mb-6">

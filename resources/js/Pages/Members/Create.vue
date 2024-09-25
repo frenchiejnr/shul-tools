@@ -3,7 +3,8 @@ import { Head, useForm } from "@inertiajs/vue3";
 import MemberForm from "./MemberForm.vue";
 
 let form = useForm({
-    name: "",
+    forenames: "",
+    surname: "",
     hebrew_name: "",
     gender: "",
     fathers_hebrew_name: "",

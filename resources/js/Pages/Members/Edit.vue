@@ -5,7 +5,8 @@ let props = defineProps({
     member: Object,
 });
 let form = useForm({
-    name: props.member.name,
+    forenames: props.member.forenames,
+    surname: props.member.surname,
     hebrew_name: props.member.hebrew_name,
     gender: props.member.gender,
     fathers_hebrew_name: props.member.fathers_hebrew_name,
