@@ -13,6 +13,8 @@ let form = useForm({
     paternal_grandmother_hebrew_name: "",
     maternal_grandfather_hebrew_name: "",
     maternal_grandmother_hebrew_name: "",
+    paternal_status: "",
+    maternal_status: "",
 });
 let submit = () => {
     form.post("/members");

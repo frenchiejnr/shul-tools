@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import StatusRadio from "./StatusRadio.vue";
 defineProps<{
     submit: any;
     form: any;
@@ -45,7 +46,6 @@ defineProps<{
                     v-text="form.errors.surname"></div>
             </div>
         </div>
-
         <div class="mb-6">
             <label
                 class="mb-2 block text-xs font-bold uppercase text-gray-700"
@@ -63,6 +63,54 @@ defineProps<{
                 v-if="form.errors.hebrew_name"
                 class="mt-1 text-xs text-red-500"
                 v-text="form.errors.hebrew_name"></div>
+        </div>
+        <div class="mb-6">
+            <label
+                class="mb-2 block text-xs font-bold uppercase text-gray-700"
+                for="status">
+                Status
+            </label>
+            <div class="flex items-center">
+                <div class="mr-2">
+                    <input
+                        type="radio"
+                        value="kohen"
+                        v-model="form.paternal_status"
+                        name="paternal_status"
+                        required />
+                    <label
+                        class="ml-1 text-sm font-bold uppercase text-gray-700"
+                        for="kohen">
+                        Kohen
+                    </label>
+                </div>
+                <div class="mr-2">
+                    <input
+                        type="radio"
+                        value="levi"
+                        v-model="form.paternal_status"
+                        name="paternal_status"
+                        required />
+                    <label
+                        class="ml-1 text-sm font-bold uppercase text-gray-700"
+                        for="levi">
+                        Levi
+                    </label>
+                </div>
+                <div class="mr-2">
+                    <input
+                        type="radio"
+                        value="yisrael"
+                        v-model="form.paternal_status"
+                        name="paternal_status"
+                        required />
+                    <label
+                        class="ml-1 text-sm font-bold uppercase text-gray-700"
+                        for="yisrael">
+                        Yisrael
+                    </label>
+                </div>
+            </div>
         </div>
         <div class="mb-6">
             <label
@@ -160,23 +208,78 @@ defineProps<{
                 v-text="form.errors.mothers_hebrew_name"></div>
         </div>
         <div class="flex justify-between">
-            <div class="mb-6">
-                <label
-                    class="mb-2 block text-xs font-bold uppercase text-gray-700"
-                    for="maternal_grandfather_hebrew_name">
-                    Mothers Father Hebrew Name
-                </label>
-                <input
-                    v-model="form.maternal_grandfather_hebrew_name"
-                    class="w-full border border-gray-400 p-2"
-                    type="text"
-                    name="maternal_grandfather_hebrew_name"
-                    id="maternal_grandfather_hebrew_name"
-                    required />
-                <div
-                    v-if="form.errors.maternal_grandfather_hebrew_name"
-                    class="mt-1 text-xs text-red-500"
-                    v-text="form.errors.maternal_grandfather_hebrew_name"></div>
+            <div>
+                <div class="mb-6">
+                    <label
+                        class="mb-2 block text-xs font-bold uppercase text-gray-700"
+                        for="maternal_grandfather_hebrew_name">
+                        Mothers Father Hebrew Name
+                    </label>
+                    <input
+                        v-model="form.maternal_grandfather_hebrew_name"
+                        class="w-full border border-gray-400 p-2"
+                        type="text"
+                        name="maternal_grandfather_hebrew_name"
+                        id="maternal_grandfather_hebrew_name"
+                        required />
+                    <div
+                        v-if="form.errors.maternal_grandfather_hebrew_name"
+                        class="mt-1 text-xs text-red-500"
+                        v-text="
+                            form.errors.maternal_grandfather_hebrew_name
+                        "></div>
+                </div>
+                <div class="mb-6">
+                    <label
+                        class="mb-2 block text-xs font-bold uppercase text-gray-700"
+                        for="status">
+                        Status
+                    </label>
+                    <div class="flex items-center">
+                        <div class="mr-2">
+                            <input
+                                type="radio"
+                                value="kohen"
+                                v-model="form.maternal_status"
+                                name="maternal_status"
+                                id="kohen"
+                                required />
+                            <label
+                                class="ml-1 text-sm font-bold uppercase text-gray-700"
+                                for="kohen">
+                                Kohen
+                            </label>
+                        </div>
+                        <div class="mr-2">
+                            <input
+                                type="radio"
+                                value="levi"
+                                v-model="form.maternal_status"
+                                name="maternal_status"
+                                id="levi"
+                                required />
+                            <label
+                                class="ml-1 text-sm font-bold uppercase text-gray-700"
+                                for="levi">
+                                Levi
+                            </label>
+                        </div>
+                        <div class="mr-2">
+                            <input
+                                type="radio"
+                                value="yisrael"
+                                v-model="form.maternal_status"
+                                name="maternal_status"
+                                id="yisrael"
+                                required />
+                            <label
+                                class="ml-1 text-sm font-bold uppercase text-gray-700"
+                                for="yisrael">
+                                Yisrael
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="mb-6">
                 <label

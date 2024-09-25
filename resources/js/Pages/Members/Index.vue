@@ -24,11 +24,18 @@ watch(
 
 function getHebrewName(member, parent) {
     const prefix = member.gender === "male" ? "ben" : "bas";
+    const status =
+        member.paternal_status === "yisrael"
+            ? ""
+            : `Ha${member.paternal_status}`;
+    console.log(member.status);
+
     return `${member.hebrew_name} ${prefix} ${
         parent === "father"
             ? member.fathers_hebrew_name
             : member.mothers_hebrew_name
-    }`;
+    }
+            ${member.gender === "male" && parent === "father" ? status : ""}`;
 }
 </script>
 
