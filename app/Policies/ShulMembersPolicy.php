@@ -13,7 +13,7 @@ class ShulMembersPolicy
      */
     public function create(User $currentUser): bool
     {
-        return $currentUser->email === 'frenchiejnr@gmail.com';
+        return $currentUser->admin === 1;
     }
 
     /**
@@ -21,6 +21,6 @@ class ShulMembersPolicy
      */
     public function edit(User $currentUser, ShulMembers $member): bool
     {
-        return $currentUser->email === 'frenchiejnr@gmail.com';
+        return $currentUser->admin === 1;
     }
 }
