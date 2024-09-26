@@ -16,6 +16,9 @@ class Ancestors extends Model
         'paternal_grandmother_hebrew_name',
         'maternal_grandfather_hebrew_name',
         'maternal_grandmother_hebrew_name',
+        'father_yahrtzeit_date',
+        'mother_yahrtzeit_date',
+
     ];
 
     public function ShulMembers()

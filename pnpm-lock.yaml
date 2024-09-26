@@ -11,6 +11,9 @@ importers:
       '@inertiajs/vue3':
         specifier: ^1.2.0
         version: 1.2.0(vue@3.5.6)
+      jewish-date:
+        specifier: ^2.0.12
+        version: 2.0.12
       vue:
         specifier: ^3.5.6
         version: 3.5.6
@@ -799,6 +802,9 @@ packages:
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
 
+  gematriya@2.0.0:
+    resolution: {integrity: sha512-i+G3iGTn/vmojZkvS0dDPcw46tREqS10mztDOVoG6AACZzqp0eOpvIYaAOqZEiH4ee0Rkgt1Sf6jWM1GobJIeg==}
+
   gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
@@ -914,6 +920,9 @@ packages:
 
   jackspeak@3.4.3:
     resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==}
+
+  jewish-date@2.0.12:
+    resolution: {integrity: sha512-CTQUOZpoPykInrgCUQRARwEVmAWJvH6c5uatFhSEGnRtFOGVOvroPZEoZlOx3wGEcrSXew30v3IZ2Ivdp9ONPg==}
 
   jiti@1.21.6:
     resolution: {integrity: sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==}
@@ -2166,6 +2175,8 @@ snapshots:
 
   function-bind@1.1.2: {}
 
+  gematriya@2.0.0: {}
+
   gensync@1.0.0-beta.2: {}
 
   get-intrinsic@1.2.4:
@@ -2262,6 +2273,10 @@ snapshots:
       '@isaacs/cliui': 8.0.2
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
+
+  jewish-date@2.0.12:
+    dependencies:
+      gematriya: 2.0.0
 
   jiti@1.21.6: {}
 

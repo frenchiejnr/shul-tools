@@ -16,6 +16,8 @@ let form = useForm({
     paternal_status: "",
     maternal_status: "",
     contact_email: "",
+    father_yahrtzeit_date: [0, 0, 5785],
+    mother_yahrtzeit_date: [0, 0, 5785],
 });
 let submit = () => {
     form.post("/members");

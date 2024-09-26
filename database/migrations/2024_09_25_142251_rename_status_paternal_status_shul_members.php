@@ -21,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('shul_members', function (Blueprint $table) {
+            $table->renameColumn('paternal_status', 'status');
+        });
     }
 };

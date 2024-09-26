@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('ancestors', function (Blueprint $table) {
-            $table->enum('maternal_status', ['kohen', 'levi', 'yisrael'])->default('yisrael');
+
+            $table->string('father_full_name')->virtualAs('fathers_hebrew_name || \' ben \' || paternal_grandfather_hebrew_name');
+            $table->string('mother_full_name')->virtualAs('mothers_hebrew_name || \' bas \' || maternal_grandfather_hebrew_name');
         });
     }
 
@@ -22,7 +24,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('ancestors', function (Blueprint $table) {
-            $table->dropColumn('maternal_status');
+
+            $table->dropColumn('father_full_name');
+            $table->dropColumn('mother_full_name');
         });
     }
 };

@@ -21,6 +21,12 @@ let form = useForm({
         props.member.maternal_grandmother_hebrew_name,
     paternal_status: props.member.paternal_status,
     maternal_status: props.member.maternal_status,
+    father_yahrtzeit_date: props.member.father_yahrtzeit_date
+        ? props.member.father_yahrtzeit_date.split("-")
+        : [],
+    mother_yahrtzeit_date: props.member.mother_yahrtzeit_date
+        ? props.member.mother_yahrtzeit_date.split("-")
+        : [],
     contact_email: props.member.contact_email,
 });
 

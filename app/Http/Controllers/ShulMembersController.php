@@ -73,6 +73,9 @@ class ShulMembersController extends Controller
             'paternal_status' => ['required'],
             'maternal_status' => ['required'],
             'contact_email' => ['email:rfc,dns'],
+            'father_yahrtzeit_date' => [''],
+            'mother_yahrtzeit_date' => [''],
+
         ]);
         $ancestor = new Ancestors([
             'fathers_hebrew_name' => $data['fathers_hebrew_name'],
@@ -82,6 +85,8 @@ class ShulMembersController extends Controller
             'maternal_grandfather_hebrew_name' => $data['maternal_grandfather_hebrew_name'],
             'maternal_grandmother_hebrew_name' => $data['maternal_grandmother_hebrew_name'],
             'maternal_status' => $data['maternal_status'],
+            'father_yahrtzeit_date' => in_array('None', $data['father_yahrtzeit_date']) ? null : implode('-', $data['father_yahrtzeit_date']),
+            'mother_yahrtzeit_date' => in_array('None', $data['mother_yahrtzeit_date']) ? null : implode('-', $data['mother_yahrtzeit_date'])
         ]);
         $ancestor->save();
 
@@ -117,6 +122,8 @@ class ShulMembersController extends Controller
                     'ancestors.maternal_grandmother_hebrew_name',
                     'paternal_status',
                     'ancestors.maternal_status',
+                    'ancestors.father_yahrtzeit_date',
+                    'ancestors.mother_yahrtzeit_date',
                     'contact_email'
                 )
                 ->first()
@@ -141,6 +148,9 @@ class ShulMembersController extends Controller
             'paternal_status' => ['required'],
             'maternal_status' => ['required'],
             'contact_email' => ['email:rfc,dns'],
+            'father_yahrtzeit_date' => [''],
+            'mother_yahrtzeit_date' => [''],
+
         ]);
         $member->ancestors()->update([
             'fathers_hebrew_name' => $data['fathers_hebrew_name'],
@@ -150,6 +160,8 @@ class ShulMembersController extends Controller
             'maternal_grandfather_hebrew_name' => $data['maternal_grandfather_hebrew_name'],
             'maternal_grandmother_hebrew_name' => $data['maternal_grandmother_hebrew_name'],
             'maternal_status' => $data['maternal_status'],
+            'father_yahrtzeit_date' => in_array('None', $data['father_yahrtzeit_date']) ? null : implode('-', $data['father_yahrtzeit_date']),
+            'mother_yahrtzeit_date' => in_array('None', $data['mother_yahrtzeit_date']) ? null : implode('-', $data['mother_yahrtzeit_date'])
         ]);
         $member->update($data);
         return redirect('/members');

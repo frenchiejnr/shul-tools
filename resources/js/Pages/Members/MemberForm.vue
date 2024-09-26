@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import StatusRadio from "./StatusRadio.vue";
+import JewishDateSelector from "../../Shared/JewishDateSelector.vue";
+import { reactive } from "vue";
 defineProps<{
     submit: any;
     form: any;
@@ -142,6 +144,11 @@ defineProps<{
                     v-text="form.errors.paternal_grandmother_hebrew_name"></div>
             </div>
         </div>
+        <JewishDateSelector v-model="form.father_yahrtzeit_date">
+            <h2 class="mb-2 text-xs font-bold uppercase text-gray-700">
+                Fathers Yahrzeit
+            </h2>
+        </JewishDateSelector>
         <div class="mb-6">
             <label
                 class="mb-2 block text-xs font-bold uppercase text-gray-700"
@@ -205,6 +212,11 @@ defineProps<{
                     v-text="form.errors.maternal_grandmother_hebrew_name"></div>
             </div>
         </div>
+        <JewishDateSelector v-model="form.mother_yahrtzeit_date">
+            <h2 class="mb-2 text-xs font-bold uppercase text-gray-700">
+                Mothers Yahrzeit
+            </h2>
+        </JewishDateSelector>
         <h2 class="mb-6 text-xl">Contact Methods</h2>
         <div class="mb-6">
             <label

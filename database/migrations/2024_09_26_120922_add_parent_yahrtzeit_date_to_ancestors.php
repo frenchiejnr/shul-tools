@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('ancestors', function (Blueprint $table) {
-            $table->enum('maternal_status', ['kohen', 'levi', 'yisrael'])->default('yisrael');
+            //
+            $table->date('father_yahrtzeit_date')->nullable();
+            $table->date('mother_yahrtzeit_date')->nullable();
         });
     }
 
@@ -22,7 +24,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('ancestors', function (Blueprint $table) {
-            $table->dropColumn('maternal_status');
+            //
+            $table->dropColumn('father_yahrtzeit_date');
+            $table->dropColumn('mother_yahrtzeit_date');
         });
     }
 };
