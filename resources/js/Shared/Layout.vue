@@ -3,8 +3,7 @@
         <meta
             type="description"
             content="Information about my app"
-            head-key="description"
-        />
+            head-key="description" />
     </Head>
     <section class="bg-gray-200 p-6">
         <header class="flex justify-between">

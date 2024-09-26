@@ -17,9 +17,9 @@ watch(
         router.get(
             "/members",
             { search: value },
-            { replace: true, preserveState: true }
+            { replace: true, preserveState: true },
         );
-    }, 500)
+    }, 500),
 );
 
 function getHebrewName(member, parent) {
@@ -79,7 +79,7 @@ function getHebrewName(member, parent) {
                                                 {{
                                                     getHebrewName(
                                                         member,
-                                                        "father"
+                                                        "father",
                                                     )
                                                 }}
                                             </div>
@@ -88,7 +88,7 @@ function getHebrewName(member, parent) {
                                                 {{
                                                     getHebrewName(
                                                         member,
-                                                        "mother"
+                                                        "mother",
                                                     )
                                                 }}
                                             </div>

@@ -22,50 +22,45 @@ let submit = () => {
                 <div class="mb-6">
                     <label
                         class="block mb-2 uppercase font-bold text-xs text-gray-700"
-                        for="email"
-                        >Email</label
-                    >
+                        for="email">
+                        Email
+                    </label>
                     <input
                         v-model="form.email"
                         class="border p-2 w-full rounded"
                         type="email"
                         name="email"
                         id="email"
-                        required
-                    />
+                        required />
                     <div
                         v-if="form.errors.email"
                         class="text-red-500 text-xs mt-1"
-                        v-text="form.errors.email"
-                    ></div>
+                        v-text="form.errors.email"></div>
                 </div>
 
                 <div class="mb-6">
                     <label
                         class="block mb-2 uppercase font-bold text-xs text-gray-700"
-                        for="password"
-                        >Password</label
-                    >
+                        for="password">
+                        Password
+                    </label>
                     <input
                         v-model="form.password"
                         class="border p-2 w-full rounded"
                         type="password"
                         name="password"
                         id="password"
-                        required
-                    />
+                        required />
                     <div
                         v-if="form.errors.password"
                         class="text-red-500 text-xs mt-1"
-                        v-text="form.errors.password"
-                    ></div>
+                        v-text="form.errors.password"></div>
                 </div>
 
                 <div class="mb-6">
                     <button
                         type="submit"
-                        class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500"
-                    >
+                        class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500">
                         Log In
                     </button>
                 </div>

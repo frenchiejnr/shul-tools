@@ -17,9 +17,9 @@ watch(
         router.get(
             "/users",
             { search: value },
-            { replace: true, preserveState: true }
+            { replace: true, preserveState: true },
         );
-    }, 500)
+    }, 500),
 );
 </script>
 
@@ -31,8 +31,7 @@ watch(
             <Link
                 v-if="can.createUser"
                 href="/users/create"
-                class="ml-2 text-sm text-blue-500"
-            >
+                class="ml-2 text-sm text-blue-500">
                 New User
             </Link>
         </div>
@@ -40,18 +39,15 @@ watch(
             type="text"
             placeholder="search..."
             class="rounded-lg border px-2"
-            v-model="search"
-        />
+            v-model="search" />
     </div>
 
     <div class="flex flex-col">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div
-                class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8"
-            >
+                class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                 <div
-                    class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg"
-                >
+                    class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
                     <table class="min-w-full divide-y divide-gray-200">
                         <tbody class="divide-y divide-gray-200 bg-white">
                             <tr v-for="user in users.data" :key="user.id">
@@ -59,8 +55,7 @@ watch(
                                     <div class="flex items-center">
                                         <div>
                                             <div
-                                                class="text-sm font-medium text-gray-900"
-                                            >
+                                                class="text-sm font-medium text-gray-900">
                                                 {{ user.name }}
                                             </div>
                                         </div>
@@ -68,12 +63,10 @@ watch(
                                 </td>
                                 <td
                                     v-if="user.can.edit"
-                                    class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium"
-                                >
+                                    class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
                                     <Link
                                         href="`/users/${user.id}/edit`"
-                                        class="text-indigo-600 hover:text-indigo-900"
-                                    >
+                                        class="text-indigo-600 hover:text-indigo-900">
                                         Edit
                                     </Link>
                                 </td>

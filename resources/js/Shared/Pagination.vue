@@ -13,7 +13,9 @@ defineProps({
             :href="link.url"
             v-html="link.label"
             class="px-1"
-            :class="{ 'text-gray-500': !link.url, 'font-bold': link.active }"
-        ></Component>
+            :class="{
+                'text-gray-500': !link.url,
+                'font-bold': link.active,
+            }"></Component>
     </div>
 </template>
