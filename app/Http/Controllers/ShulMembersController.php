@@ -72,6 +72,7 @@ class ShulMembersController extends Controller
             'maternal_grandmother_hebrew_name' => ['required', 'max:255'],
             'paternal_status' => ['required'],
             'maternal_status' => ['required'],
+            'contact_email' => ['email:rfc,dns'],
         ]);
         $ancestor = new Ancestors([
             'fathers_hebrew_name' => $data['fathers_hebrew_name'],
@@ -115,7 +116,8 @@ class ShulMembersController extends Controller
                     'ancestors.maternal_grandfather_hebrew_name',
                     'ancestors.maternal_grandmother_hebrew_name',
                     'paternal_status',
-                    'ancestors.maternal_status'
+                    'ancestors.maternal_status',
+                    'contact_email'
                 )
                 ->first()
 
@@ -138,6 +140,7 @@ class ShulMembersController extends Controller
             'maternal_grandmother_hebrew_name' => ['required', 'max:255'],
             'paternal_status' => ['required'],
             'maternal_status' => ['required'],
+            'contact_email' => ['email:rfc,dns'],
         ]);
         $member->ancestors()->update([
             'fathers_hebrew_name' => $data['fathers_hebrew_name'],

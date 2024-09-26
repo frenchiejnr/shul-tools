@@ -205,6 +205,25 @@ defineProps<{
                     v-text="form.errors.maternal_grandmother_hebrew_name"></div>
             </div>
         </div>
+        <h2 class="mb-6 text-xl">Contact Methods</h2>
+        <div class="mb-6">
+            <label
+                class="mb-2 block text-xs font-bold uppercase text-gray-700"
+                for="contact_email">
+                Contact Email
+            </label>
+            <input
+                v-model="form.contact_email"
+                class="w-full border border-gray-400 p-2"
+                type="email"
+                name="contact_email"
+                id="contact_email"
+                required />
+            <div
+                v-if="form.errors.contact_email"
+                class="mt-1 text-xs text-red-500"
+                v-text="form.errors.contact_email" />
+        </div>
 
         <div class="mb-6">
             <button

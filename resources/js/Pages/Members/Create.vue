@@ -15,6 +15,7 @@ let form = useForm({
     maternal_grandmother_hebrew_name: "",
     paternal_status: "",
     maternal_status: "",
+    contact_email: "",
 });
 let submit = () => {
     form.post("/members");

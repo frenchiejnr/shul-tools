@@ -21,6 +21,7 @@ let form = useForm({
         props.member.maternal_grandmother_hebrew_name,
     paternal_status: props.member.paternal_status,
     maternal_status: props.member.maternal_status,
+    contact_email: props.member.contact_email,
 });
 
 let submit = () => {

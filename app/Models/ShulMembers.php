@@ -15,6 +15,7 @@ class ShulMembers extends Model
         'hebrew_name',
         'gender',
         'paternal_status',
+        'contact_email',
     ];
 
     public function ancestors()
