@@ -7,8 +7,23 @@ let props = defineProps({
     members: Object,
     filters: Object,
     can: Object,
+    sort: String,
+    direction: String,
 });
 
+const direction = ref("asc");
+const selectedSort = ref("id");
+
+const sort = (column) => {
+    router.get(
+        "/members",
+        {
+            sort: column,
+            direction: direction.value,
+        },
+        { replace: true, preserveState: true }
+    );
+};
 let search = ref(props.filters.search);
 
 watch(
@@ -17,9 +32,9 @@ watch(
         router.get(
             "/members",
             { search: value },
-            { replace: true, preserveState: true },
+            { replace: true, preserveState: true }
         );
-    }, 500),
+    }, 500)
 );
 
 function getHebrewName(member, parent) {
@@ -39,8 +54,9 @@ function getHebrewName(member, parent) {
 
 <template>
     <Head title="Members"></Head>
-    <div class="mb-6 flex justify-between">
-        <div class="flex items-center">
+    <div
+        class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+        <div class="mb-2 flex items-center sm:mb-0">
             <h1 class="text-3xl">Members</h1>
             <Link
                 v-if="can.createMember"
@@ -49,11 +65,31 @@ function getHebrewName(member, parent) {
                 New Member
             </Link>
         </div>
-        <input
-            type="text"
-            placeholder="search..."
-            class="rounded-lg border px-2"
-            v-model="search" />
+        <div class="flex flex-col sm:flex-row sm:items-center">
+            <input
+                type="text"
+                placeholder="search..."
+                class="mb-2 w-full rounded-lg border px-2 sm:mb-0 sm:mr-2 sm:w-auto"
+                v-model="search" />
+            <div class="flex justify-end sm:ml-auto">
+                <select
+                    v-model="selectedSort"
+                    @change="sort(selectedSort)"
+                    class="mr-2 rounded-lg border px-2">
+                    <option value="id">ID</option>
+                    <option value="forenames">First Name</option>
+                    <option value="surname">Surname</option>
+                    <option value="hebrew_name">Hebrew Name</option>
+                </select>
+                <select
+                    v-model="direction"
+                    @change="sort(selectedSort)"
+                    class="rounded-lg border px-2">
+                    <option value="asc">A-Z</option>
+                    <option value="desc">Z-A</option>
+                </select>
+            </div>
+        </div>
     </div>
 
     <div class="flex flex-col">
@@ -79,7 +115,7 @@ function getHebrewName(member, parent) {
                                                 {{
                                                     getHebrewName(
                                                         member,
-                                                        "father",
+                                                        "father"
                                                     )
                                                 }}
                                             </div>
@@ -88,7 +124,7 @@ function getHebrewName(member, parent) {
                                                 {{
                                                     getHebrewName(
                                                         member,
-                                                        "mother",
+                                                        "mother"
                                                     )
                                                 }}
                                             </div>

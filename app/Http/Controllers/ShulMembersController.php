@@ -14,37 +14,47 @@ class ShulMembersController extends Controller
 
     public function index()
     {
-        return Inertia::render('Members/Index', [
-            'members' => ShulMembers::query()
-                ->select('shul_members.*')
-                ->join('ancestors', 'shul_members.ancestors_id', '=', 'ancestors.id')
-                ->addSelect('ancestors.*')
-                ->addSelect('shul_members.id as member_id')
-                ->when(Request::input('search'), function ($query, $search) {
-                    $query
-                        ->where('forenames', 'like', "%{$search}%")
-                        ->orWhere('surname', 'like', "%{$search}%")
-                        ->orWhere('hebrew_name', 'like', "%{$search}%")
-                        ->orWhere('fathers_hebrew_name', 'like', "%{$search}%")
-                        ->orWhere('mothers_hebrew_name', 'like', "%{$search}%");
-                })
-                ->paginate(10)
-                ->withQueryString()
-                ->through(fn($member) => [
-                    'forenames' => $member->forenames,
-                    'surname' => $member->surname,
-                    'hebrew_name' => $member->hebrew_name,
-                    'gender' => $member->gender,
-                    'fathers_hebrew_name' => $member->fathers_hebrew_name,
-                    'mothers_hebrew_name' => $member->mothers_hebrew_name,
-                    'id' => $member->member_id,
-                    'ancestors_id' => $member->ancestors_id,
-                    'paternal_status' => $member->paternal_status,
+        $sort = Request::input('sort');
+        $direction = Request::input('direction', 'asc');
 
-                    'can' => [
-                        'edit' => Auth::user()->can('edit', $member)
-                    ]
-                ]),
+        $members = ShulMembers::query()
+            ->select('shul_members.*')
+            ->join('ancestors', 'shul_members.ancestors_id', '=', 'ancestors.id')
+            ->addSelect('ancestors.*')
+            ->addSelect('shul_members.id as member_id')
+            ->when(Request::input('search'), function ($query, $search) {
+                $query
+                    ->where('forenames', 'like', "%{$search}%")
+                    ->orWhere('surname', 'like', "%{$search}%")
+                    ->orWhere('hebrew_name', 'like', "%{$search}%")
+                    ->orWhere('fathers_hebrew_name', 'like', "%{$search}%")
+                    ->orWhere('mothers_hebrew_name', 'like', "%{$search}%");
+            })
+            ->when($sort, function ($query, $sort) use ($direction) {
+                $query->orderBy($sort, $direction);
+            })
+            ->paginate(10)
+            ->withQueryString()
+            ->through(fn($member) => [
+                'forenames' => $member->forenames,
+                'surname' => $member->surname,
+                'hebrew_name' => $member->hebrew_name,
+                'gender' => $member->gender,
+                'fathers_hebrew_name' => $member->fathers_hebrew_name,
+                'mothers_hebrew_name' => $member->mothers_hebrew_name,
+                'id' => $member->member_id,
+                'ancestors_id' => $member->ancestors_id,
+                'paternal_status' => $member->paternal_status,
+
+                'can' => [
+                    'edit' => Auth::user()->can('edit', $member)
+                ]
+            ]);
+
+        return Inertia::render('Members/Index', [
+            'members' => $members,
+            'sort' => $sort,
+            'direction' => $direction,
             'filters' => Request::only(['search']),
             'can' => [
                 'createMember' => Auth::user()->can('create', ShulMembers::class)
