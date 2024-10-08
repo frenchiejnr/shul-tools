@@ -5,11 +5,12 @@
             content="Information about my app"
             head-key="description" />
     </Head>
-    <section class="bg-gray-200 p-6">
-        <header class="flex justify-between">
-            <div class="flex items-center">
+    <section class="bg-gray-200 p-2 sm:p-6">
+        <header
+            class="flex flex-col justify-between sm:flex-row sm:items-center">
+            <div class="flex flex-col items-center sm:flex-row">
                 <h1 class="text-lg font-bold">My App</h1>
-                <p class="ml-4 text-sm">Welcome Back, {{ username }}!</p>
+                <p class="text-sm sm:ml-4">Welcome Back, {{ username }}!</p>
             </div>
             <Nav />
         </header>

@@ -4,8 +4,10 @@ import NavLink from "./NavLink.vue";
 </script>
 
 <template>
-    <nav class="ml-6">
-        <ul class="flex space-x-6">
+    <nav
+        class="mt-3 sm:ml-6 sm:mt-0 sm:space-x-6 md:flex-row md:space-x-0 md:space-y-6 lg:space-y-0">
+        <ul
+            class="flex justify-between space-x-6 md:flex-row md:space-x-6 md:space-y-0">
             <li>
                 <NavLink href="/" :active="$page.component === 'Home'">
                     Home
