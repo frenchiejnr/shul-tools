@@ -15,8 +15,8 @@ Route::post('/login', [LoginController::class, 'store']);
 Route::post('/logout', [LoginController::class, 'destroy'])->middleware('auth');
 
 
+Route::inertia('/', 'Home');
 Route::middleware('auth')->group(function () {
-    Route::inertia('/', 'Home');
     Route::inertia('/settings', 'Settings');
 
     Route::get('/users', [UsersController::class, 'index']);

@@ -10,7 +10,9 @@
             class="flex flex-col justify-between sm:flex-row sm:items-center">
             <div class="flex flex-col items-center sm:flex-row">
                 <h1 class="text-lg font-bold">My App</h1>
-                <p class="text-sm sm:ml-4">Welcome Back, {{ username }}!</p>
+                <p v-if="username" class="text-sm sm:ml-4">
+                    Welcome Back, {{ username }}!
+                </p>
             </div>
             <Nav />
         </header>
@@ -25,9 +27,8 @@
 <script setup>
 import Nav from "./Nav.vue";
 import { computed } from "vue";
-import { usePage } from "@inertiajs/vue3";
-import { Head } from "@inertiajs/vue3";
+import { Head, usePage } from "@inertiajs/vue3";
 
 const page = usePage();
-let username = computed(() => page.props.auth.user.username);
+let username = computed(() => page.props.auth?.user?.username || null);
 </script>
