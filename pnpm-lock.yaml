@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@hebcal/core':
+        specifier: ^5.5.2
+        version: 5.5.2(temporal-polyfill@0.2.5)
       '@inertiajs/vue3':
         specifier: ^1.2.0
         version: 1.2.0(vue@3.5.6)
@@ -340,6 +343,20 @@ packages:
     engines: {node: '>=12'}
     cpu: [x64]
     os: [win32]
+
+  '@hebcal/core@5.5.2':
+    resolution: {integrity: sha512-lRI7I13PXvEX2xT+MSqAG3ZLHEGPM1gWLbVMvyacYSgcIcqQtKorzmiXIPAXWseCwixf8qs0YK2KJkKnihaJkw==}
+    engines: {node: '>= 16.0.0'}
+    peerDependencies:
+      temporal-polyfill: ^0.2.5
+
+  '@hebcal/hdate@0.11.4':
+    resolution: {integrity: sha512-tDjSi62wdKgMi4EKg0h1dXf5vkU9/4+HCyOZX+xXGutccniuoXPoEj8D/IBGLfkBI2MjAdDXlAVs+hVEo9lHiQ==}
+
+  '@hebcal/noaa@0.8.14':
+    resolution: {integrity: sha512-bEi88KS2JZm+94uOnAz+YL7JLaCxfVlo17KhMWu7HvUf2Sjr5DNH9gvJ0Nk3/Oxkm7eJtAzsOOCKce2kd7Y8Rw==}
+    peerDependencies:
+      temporal-polyfill: ^0.2.4
 
   '@inertiajs/core@1.2.0':
     resolution: {integrity: sha512-6U0gqCPbGGGMcLoDm+ckKipc5gptZMmfVFfPGdO7vlO7yipWf1RD+TKkcZGJklFvfgFMKwK2VPw8GAv1OctuQA==}
@@ -1271,6 +1288,12 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
 
+  temporal-polyfill@0.2.5:
+    resolution: {integrity: sha512-ye47xp8Cb0nDguAhrrDS1JT1SzwEV9e26sSsrWzVu+yPZ7LzceEcH0i2gci9jWfOfSCCgM3Qv5nOYShVUUFUXA==}
+
+  temporal-spec@0.2.4:
+    resolution: {integrity: sha512-lDMFv4nKQrSjlkHKAlHVqKrBG4DyFfa9F74cmBZ3Iy3ed8yvWnlWSIdi4IKfSqwmazAohBNwiN64qGx4y5Q3IQ==}
+
   thenify-all@1.6.0:
     resolution: {integrity: sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo64+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA==}
     engines: {node: '>=0.8'}
@@ -1292,6 +1315,9 @@ packages:
 
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
+
+  tslib@2.7.0:
+    resolution: {integrity: sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==}
 
   universalify@2.0.1:
     resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
@@ -1677,6 +1703,19 @@ snapshots:
 
   '@esbuild/win32-x64@0.21.5':
     optional: true
+
+  '@hebcal/core@5.5.2(temporal-polyfill@0.2.5)':
+    dependencies:
+      '@hebcal/hdate': 0.11.4
+      '@hebcal/noaa': 0.8.14(temporal-polyfill@0.2.5)
+      temporal-polyfill: 0.2.5
+      tslib: 2.7.0
+
+  '@hebcal/hdate@0.11.4': {}
+
+  '@hebcal/noaa@0.8.14(temporal-polyfill@0.2.5)':
+    dependencies:
+      temporal-polyfill: 0.2.5
 
   '@inertiajs/core@1.2.0':
     dependencies:
@@ -2611,6 +2650,12 @@ snapshots:
     transitivePeerDependencies:
       - ts-node
 
+  temporal-polyfill@0.2.5:
+    dependencies:
+      temporal-spec: 0.2.4
+
+  temporal-spec@0.2.4: {}
+
   thenify-all@1.6.0:
     dependencies:
       thenify: 3.3.1
@@ -2628,6 +2673,8 @@ snapshots:
   totalist@3.0.1: {}
 
   ts-interface-checker@0.1.13: {}
+
+  tslib@2.7.0: {}
 
   universalify@2.0.1: {}
 

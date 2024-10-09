@@ -6,7 +6,6 @@ import { computed } from "vue";
 const page = usePage();
 
 const isLoggedIn = computed(() => !!page.props.auth?.user?.username);
-console.log(isLoggedIn.value);
 </script>
 
 <template>
