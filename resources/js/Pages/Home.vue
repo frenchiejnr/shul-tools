@@ -1,7 +1,7 @@
 <script setup>
 import { Head } from "@inertiajs/vue3";
 import { ref } from "vue";
-import { GeoLocation, HDate, Zmanim, Location } from "@hebcal/core";
+import { GeoLocation, HDate, Zmanim, Location, Sedra } from "@hebcal/core";
 
 const latitude = 53.52469444;
 const longitude = -2.25694444;
@@ -20,13 +20,12 @@ const options = {
     timeZone: timezone,
 };
 
-const hebrewDate = Zmanim.makeSunsetAwareHDate(
-    geoLocation,
-    new Date("01/05/25"),
-    false
-);
+const hebrewDate = Zmanim.makeSunsetAwareHDate(geoLocation, new Date(), false);
 const todaysZmanim = new Zmanim(geoLocation, hebrewDate, false);
-console.log(todaysZmanim.getTemporalHourByDeg(12));
+
+const weeklySedra = new Sedra(new HDate(hebrewDate).getFullYear(), false).get(
+    hebrewDate
+);
 
 const manchesterTemporalHour = (angle1, angle2) => {
     const alot = todaysZmanim.timeAtAngle(angle1, true);
@@ -36,7 +35,7 @@ const manchesterTemporalHour = (angle1, angle2) => {
 };
 
 const date = ref(hebrewDate);
-const zmanim = [
+const zmanim = ref([
     {
         name: "Dawn",
         time: Zmanim.formatTime(
@@ -192,7 +191,7 @@ const zmanim = [
         ),
         hebrewName: "צאת הכוכבים ר'ת",
     },
-];
+]);
 </script>
 
 <template>
@@ -202,9 +201,26 @@ const zmanim = [
             content="Home Information"
             head-key="description" />
     </Head>
-    <h1 class="text-3xl">Home</h1>
+    <div class="mb-6 flex items-center justify-between">
+        <h1 class="text-3xl">Home</h1>
+        <div class="text-right text-xl">
+            <p>
+                {{
+                    new Intl.DateTimeFormat("en-GB", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                    }).format(new Date())
+                }}
+            </p>
+            <p>{{ date }}</p>
+        </div>
+    </div>
+    <div class="mb-6 flex items-center justify-center">
+        <h2 class="mr-3 text-xl">Next Sedra</h2>
+        <h2 class="text-l">{{ weeklySedra[0] }}</h2>
+    </div>
     <div>
-        <h2>{{ date }}</h2>
         <div class="flex flex-col">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div
