@@ -1,7 +1,9 @@
 <script setup>
 import { Head } from "@inertiajs/vue3";
 import { ref } from "vue";
-import { GeoLocation, HDate, Zmanim, Location, Sedra } from "@hebcal/core";
+import { HDate, Zmanim, Location, Sedra, HebrewCalendar } from "@hebcal/core";
+import DailyZmanim from "../Shared/DailyZmanim.vue";
+import { getLeyningOnDate } from "@hebcal/leyning";
 
 const latitude = 53.52469444;
 const longitude = -2.25694444;
@@ -26,6 +28,22 @@ const todaysZmanim = new Zmanim(geoLocation, hebrewDate, false);
 const weeklySedra = new Sedra(new HDate(hebrewDate).getFullYear(), false).get(
     hebrewDate
 );
+
+const candleLighting = HebrewCalendar.calendar({
+    candlelighting: true,
+    candleLightingMins: 15,
+    havdalahDeg: 8,
+    location: geoLocation,
+    isHebrewYear: true,
+    noHolidays: true,
+    start: hebrewDate,
+    end: hebrewDate.add(7),
+    sedrot: true,
+    noMinorFast: true,
+    noRoshChodesh: true,
+    noModern: true,
+});
+console.log(candleLighting);
 
 const manchesterTemporalHour = (angle1, angle2) => {
     const alot = todaysZmanim.timeAtAngle(angle1, true);
@@ -192,6 +210,21 @@ const zmanim = ref([
         hebrewName: "צאת הכוכבים ר'ת",
     },
 ]);
+
+function formatBookName(sedraName) {
+    const torahBookNames = {
+        Genesis: "Sefer Bereishis",
+        Exodus: "Sefer Shemos",
+        Leviticus: "Sefer Vayikra",
+        Numbers: "Sefer Bamidbar",
+        Deuteronomy: "Sefer Devarim",
+    };
+
+    return sedraName.replace(
+        /(Genesis|Exodus|Leviticus|Numbers|Deuteronomy)/g,
+        (match) => torahBookNames[match]
+    );
+}
 </script>
 
 <template>
@@ -218,54 +251,11 @@ const zmanim = ref([
     </div>
     <div class="mb-6 flex items-center justify-center">
         <h2 class="mr-3 text-xl">Next Sedra</h2>
-        <h2 class="text-l">{{ weeklySedra[0] }}</h2>
+        <h2 class="text-xl">{{ weeklySedra[0] }}</h2>
     </div>
     <div>
-        <div class="flex flex-col">
-            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div
-                    class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                    <div
-                        class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <tbody class="divide-y divide-gray-200 bg-white">
-                                <tr
-                                    v-for="zman in zmanim"
-                                    :key="zman.name"
-                                    class="flex items-center justify-between text-sm font-medium text-gray-900">
-                                    <td
-                                        class="hidden basis-2/5 whitespace-nowrap px-6 py-4 sm:block">
-                                        <p>
-                                            {{ zman.name }}
-                                        </p>
-                                    </td>
-                                    <td
-                                        class="hidden whitespace-nowrap px-6 py-4 sm:block">
-                                        <p>
-                                            {{ zman.time }}
-                                        </p>
-                                    </td>
-                                    <td
-                                        class="hidden basis-2/5 whitespace-nowrap px-6 py-4 text-right sm:block">
-                                        {{ zman.hebrewName }}
-                                    </td>
-                                    <td
-                                        class="block whitespace-nowrap px-6 py-4 sm:hidden">
-                                        <p>
-                                            {{ zman.hebrewName }}
-                                        </p>
-                                        <p>
-                                            {{ zman.name }}
-                                        </p>
-                                    </td>
-                                    <td
-                                        class="block whitespace-nowrap px-6 py-4 sm:hidden">
-                                        {{ zman.time }}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+        <DailyZmanim :zmanim />
+    </div>
                 </div>
             </div>
         </div>
