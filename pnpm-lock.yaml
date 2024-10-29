@@ -11,6 +11,9 @@ importers:
       '@hebcal/core':
         specifier: ^5.5.2
         version: 5.5.2(temporal-polyfill@0.2.5)
+      '@hebcal/leyning':
+        specifier: ^8.2.6
+        version: 8.2.6(temporal-polyfill@0.2.5)
       '@inertiajs/vue3':
         specifier: ^1.2.0
         version: 1.2.0(vue@3.5.6)
@@ -352,6 +355,10 @@ packages:
 
   '@hebcal/hdate@0.11.4':
     resolution: {integrity: sha512-tDjSi62wdKgMi4EKg0h1dXf5vkU9/4+HCyOZX+xXGutccniuoXPoEj8D/IBGLfkBI2MjAdDXlAVs+hVEo9lHiQ==}
+
+  '@hebcal/leyning@8.2.6':
+    resolution: {integrity: sha512-z2M1noDOa8VDfOP045c8UmgQvHoIW7KvLMCYGb6IJ6PthO1kaDQmnEhs1SVEwazv0s979fwViXMrK3QL81ucOg==}
+    hasBin: true
 
   '@hebcal/noaa@0.8.14':
     resolution: {integrity: sha512-bEi88KS2JZm+94uOnAz+YL7JLaCxfVlo17KhMWu7HvUf2Sjr5DNH9gvJ0Nk3/Oxkm7eJtAzsOOCKce2kd7Y8Rw==}
@@ -1712,6 +1719,13 @@ snapshots:
       tslib: 2.7.0
 
   '@hebcal/hdate@0.11.4': {}
+
+  '@hebcal/leyning@8.2.6(temporal-polyfill@0.2.5)':
+    dependencies:
+      '@hebcal/core': 5.5.2(temporal-polyfill@0.2.5)
+      tslib: 2.7.0
+    transitivePeerDependencies:
+      - temporal-polyfill
 
   '@hebcal/noaa@0.8.14(temporal-polyfill@0.2.5)':
     dependencies:

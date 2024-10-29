@@ -256,8 +256,37 @@ function formatBookName(sedraName) {
     <div>
         <DailyZmanim :zmanim />
     </div>
-                </div>
-            </div>
-        </div>
+    <div>
+        Next Candle Lighting:
+        <h1>
+            {{
+                candleLighting[0]?.linkedEvent
+                    ? candleLighting[0]?.linkedEvent.render("ashkenazi")
+                    : candleLighting
+                          .filter(
+                              (e) => e.constructor.name === "ParshaEvent"
+                          )[0]
+                          .render("ashkenazi")
+            }}
+
+            {{ candleLighting[0].date.renderGematriya(true) }}
+            {{
+                formatBookName(getLeyningOnDate(candleLighting[1].date).summary)
+            }}
+        </h1>
+        <h1>
+            {{
+                candleLighting
+                    .filter((e) => e.desc === "Candle lighting")[0]
+                    .render("ashkenazi")
+            }}
+        </h1>
+        <h1>
+            {{
+                candleLighting
+                    .filter((e) => e.desc === "Havdalah")[0]
+                    .render("ashkenazi")
+            }}
+        </h1>
     </div>
 </template>
