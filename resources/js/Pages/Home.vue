@@ -211,20 +211,54 @@ const zmanim = ref([
     },
 ]);
 
-function formatBookName(sedraName) {
-    const torahBookNames = {
+function formatTanachBookName(bookName) {
+    const tanachBookNames = {
         Genesis: "Sefer Bereishis",
         Exodus: "Sefer Shemos",
         Leviticus: "Sefer Vayikra",
         Numbers: "Sefer Bamidbar",
         Deuteronomy: "Sefer Devarim",
+        Joshua: "Sefer Yehoshua",
+        Judges: "Sefer Shoftim",
+        "I Samuel": "Sefer Shmuel Aleph",
+        "II Samuel": "Sefer Shmuel Beis",
+        "I Kings": "Sefer Melachim Aleph",
+        "II Kings": "Sefer Melachim Beis",
+        Isaiah: "Sefer Yeshayahu",
+        Jeremiah: "Sefer Yirmiyahu",
+        Ezekiel: "Sefer Yechezkel",
+        Hosea: "Hoshea",
+        Joel: "Yoel",
+        Amos: "Amos",
+        Obadiah: "Ovadyahu",
+        Jonah: "Yonah",
+        Micah: "Michah",
+        Habakkuk: "Habakkuk",
+        Zephaniah: "Tzephaniah",
+        Haggai: "Chaggai",
+        Zechariah: "Zecharyah",
+        Malachi: "Malachi",
+        Psalms: "Sefer Tehillim",
+        Proverbs: "Sefer Mishlei",
+        Job: "Sefer Iyov",
+        "Song of Songs": "Shir HaShirim",
+        Ruth: "Megillas Rua",
+        Lamentations: "Megillas Eichah",
+        Ecclesiastes: "Koheles",
+        Esther: "Megillas Esther",
+        Daniel: "Sefer Daniel",
+        Ezra: "Sefer Ezra",
+        Nehemiah: "Sefer Nechemiah",
+        Chronicles: "Sefer Divrei HaYamim",
     };
 
-    return sedraName.replace(
-        /(Genesis|Exodus|Leviticus|Numbers|Deuteronomy)/g,
-        (match) => torahBookNames[match]
+    return bookName.replace(
+        new RegExp(Object.keys(tanachBookNames).join("|"), "g"),
+        (match) => tanachBookNames[match]
     );
 }
+const leyning = getLeyningOnDate(candleLighting[1].date);
+console.log(leyning);
 </script>
 
 <template>
@@ -249,44 +283,71 @@ function formatBookName(sedraName) {
             <p>{{ date }}</p>
         </div>
     </div>
-    <div class="mb-6 flex items-center justify-center">
-        <h2 class="mr-3 text-xl">Next Sedra</h2>
-        <h2 class="text-xl">{{ weeklySedra[0] }}</h2>
-    </div>
     <div>
         <DailyZmanim :zmanim />
     </div>
     <div>
-        Next Candle Lighting:
-        <h1>
-            {{
-                candleLighting[0]?.linkedEvent
-                    ? candleLighting[0]?.linkedEvent.render("ashkenazi")
-                    : candleLighting
-                          .filter(
-                              (e) => e.constructor.name === "ParshaEvent"
-                          )[0]
-                          .render("ashkenazi")
-            }}
+        <div class="mb-6 flex items-center justify-center">
+            <h2 class="mr-3 text-xl">Next Sedra</h2>
+            <h2 class="text-xl">{{ weeklySedra[0] }}</h2>
+        </div>
+        <div class="mb-6">
+            <p class="mb-2 text-lg">Next Candle Lighting:</p>
+            <div class="">
+                <div class="flex justify-between">
+                    <p>
+                        <!-- {{
+                            candleLighting[0]?.linkedEvent
+                                ? candleLighting[0]?.linkedEvent.render(
+                                    "ashkenazi"
+                                )
+                                : candleLighting
+                                    .filter(
+                                        (e) =>
+                                            e.constructor.name ===
+                                            "ParshaEvent"
+                                    )[0]
+                                    .render("ashkenazi")
+                        }} -->
+                    </p>
+                    <p>{{ candleLighting[0].date.renderGematriya(true) }}</p>
+                </div>
+                <div class="flex justify-between">
+                                        <p v-if="leyning.reason">
+                        Leyning: ({{ leyning.reason.M }})
+                    </p>
+                    <p v-else>Leyning:</p>
+                    <p>
+                        {{ formatTanachBookName(leyning.summary) }}
+                    </p>
+                </div>
+                <div class="flex justify-between">
+                    <p v-if="leyning.reason">
+                        Haftarah: ({{ leyning.reason.haftara }})
+                    </p>
+                    <p v-else>Haftarah:</p>
+                    <p>
+                        {{ formatTanachBookName(leyning.haftara) }}
+                    </p>
+                </div>
+            </div>
 
-            {{ candleLighting[0].date.renderGematriya(true) }}
-            {{
-                formatBookName(getLeyningOnDate(candleLighting[1].date).summary)
-            }}
-        </h1>
-        <h1>
-            {{
-                candleLighting
-                    .filter((e) => e.desc === "Candle lighting")[0]
-                    .render("ashkenazi")
-            }}
-        </h1>
-        <h1>
-            {{
-                candleLighting
-                    .filter((e) => e.desc === "Havdalah")[0]
-                    .render("ashkenazi")
-            }}
-        </h1>
+            <div class="mt-6 flex justify-between">
+                <h1>
+                    {{
+                        candleLighting
+                            .filter((e) => e.desc === "Candle lighting")[0]
+                            .render("ashkenazi")
+                    }}
+                </h1>
+                <h1>
+                    {{
+                        candleLighting
+                            .filter((e) => e.desc === "Havdalah")[0]
+                            .render("ashkenazi")
+                    }}
+                </h1>
+            </div>
+        </div>
     </div>
 </template>

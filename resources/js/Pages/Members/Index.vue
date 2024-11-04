@@ -12,7 +12,7 @@ let props = defineProps({
 });
 
 const direction = ref("asc");
-const selectedSort = ref("id");
+const selectedSort = ref("member_id");
 
 const sort = (column) => {
     router.get(
@@ -76,7 +76,7 @@ function getHebrewName(member, parent) {
                     v-model="selectedSort"
                     @change="sort(selectedSort)"
                     class="mr-2 rounded-lg border px-2">
-                    <option value="id">ID</option>
+                    <option value="member_id">ID</option>
                     <option value="forenames">First Name</option>
                     <option value="surname">Surname</option>
                     <option value="hebrew_name">Hebrew Name</option>
