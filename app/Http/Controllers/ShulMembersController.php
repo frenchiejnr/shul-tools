@@ -47,7 +47,7 @@ class ShulMembersController extends Controller
                 'paternal_status' => $member->paternal_status,
 
                 'can' => [
-                    'edit' => Auth::user()->can('edit', $member)
+                    'edit' => Auth::user()->isAdmin() ?? Auth::user()->can('edit', $member),
                 ]
             ]);
 
@@ -57,7 +57,7 @@ class ShulMembersController extends Controller
             'direction' => $direction,
             'filters' => Request::only(['search']),
             'can' => [
-                'createMember' => Auth::user()->can('create', ShulMembers::class)
+                'createMember' => Auth::user()->isAdmin() ?? Auth::user()->can('create', ShulMembers::class)
             ]
         ]);
     }

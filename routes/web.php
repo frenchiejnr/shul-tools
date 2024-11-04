@@ -1,14 +1,10 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use Illuminate\Support\Facades\Request;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ShulMembersController;
 use App\Http\Controllers\UsersController;
-use App\Models\ShulMembers;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Middleware\AdminUser;
 
 Route::get('/login', [LoginController::class, 'create'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
@@ -24,8 +20,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/users', [UsersController::class, 'store']);
 
     Route::get('/members', [ShulMembersController::class, 'index']);
-    Route::get('/members/create', [ShulMembersController::class, 'create'])->can('create', 'App\Models\ShulMembers');
-    Route::get('/members/{member:id}/edit', [ShulMembersController::class, 'edit']);
     Route::post('/members', [ShulMembersController::class, 'store']);
     Route::post('/members/{member:id}/edit', [ShulMembersController::class, 'editUser']);
+});
+
+Route::middleware(AdminUser::class)->group(function () {
+    Route::get('/members/create', [ShulMembersController::class, 'create']);
+    Route::get('/members/{member:id}/edit', [ShulMembersController::class, 'edit']);
 });

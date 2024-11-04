@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'admin'
     ];
 
     /**
@@ -48,5 +49,10 @@ class User extends Authenticatable
     public function setPasswordAttribute(string $password): void
     {
         $this->attributes['password'] = bcrypt($password);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->admin;
     }
 }

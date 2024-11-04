@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::table('ancestors', function (Blueprint $table) {
             //
-            $table->date('father_yahrtzeit_date')->nullable();
-            $table->date('mother_yahrtzeit_date')->nullable();
+            $table->string('father_yahrtzeit_date')->nullable();
+            $table->string('mother_yahrtzeit_date')->nullable();
         });
     }
 
