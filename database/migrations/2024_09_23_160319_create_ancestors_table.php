@@ -11,10 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('shul_members', function (Blueprint $table) {
-            $table->foreignId('ancestors_id')->constrained()->onDelete('cascade');
-            $table->dropColumn(['fathers_hebrew_name', 'paternal_grandfather_hebrew_name', 'paternal_grandmother_hebrew_name', 'mothers_hebrew_name', 'maternal_grandfather_hebrew_name', 'maternal_grandmother_hebrew_name']);
-        });
         Schema::create('ancestors', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
@@ -24,6 +20,10 @@ return new class extends Migration
             $table->string('mothers_hebrew_name')->default('mamme');
             $table->string('maternal_grandfather_hebrew_name')->default('mamme tatte');
             $table->string('maternal_grandmother_hebrew_name')->default('mamme mamme');
+        });
+        Schema::table('shul_members', function (Blueprint $table) {
+            $table->foreignId('ancestors_id')->constrained()->onDelete('cascade');
+            $table->dropColumn(['fathers_hebrew_name', 'paternal_grandfather_hebrew_name', 'paternal_grandmother_hebrew_name', 'mothers_hebrew_name', 'maternal_grandfather_hebrew_name', 'maternal_grandmother_hebrew_name']);
         });
     }
 

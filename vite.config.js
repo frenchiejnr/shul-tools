@@ -21,6 +21,9 @@ export default defineConfig({
             appendTo: "app.js",
         }),
     ],
+    build: {
+        sourcemap: true,
+    },
 
     resolve: (name) => {
         const pages = import.meta.glob("./Pages/**/*.vue", { eager: true });

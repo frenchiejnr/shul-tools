@@ -26,5 +26,8 @@
     "prettier": {
         "htmlWhitespaceSensitivity": "ignore",
         "bracketSameLine": true
+    },
+    "engines": {
+        "node": "18.x"
     }
 }

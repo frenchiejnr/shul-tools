@@ -9,24 +9,24 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::table('ancestors', function (Blueprint $table) {
+    // public function up(): void
+    // {
+    //     Schema::table('ancestors', function (Blueprint $table) {
 
-            $table->string('father_full_name')->virtualAs('fathers_hebrew_name || \' ben \' || paternal_grandfather_hebrew_name');
-            $table->string('mother_full_name')->virtualAs('mothers_hebrew_name || \' bas \' || maternal_grandfather_hebrew_name');
-        });
-    }
+    //         $table->string('father_full_name')->virtualAs('fathers_hebrew_name || \' ben \' || paternal_grandfather_hebrew_name');
+    //         $table->string('mother_full_name')->virtualAs('mothers_hebrew_name || \' bas \' || maternal_grandfather_hebrew_name');
+    //     });
+    // }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('ancestors', function (Blueprint $table) {
+    // /**
+    //  * Reverse the migrations.
+    //  */
+    // public function down(): void
+    // {
+    //     Schema::table('ancestors', function (Blueprint $table) {
 
-            $table->dropColumn('father_full_name');
-            $table->dropColumn('mother_full_name');
-        });
-    }
+    //         $table->dropColumn('father_full_name');
+    //         $table->dropColumn('mother_full_name');
+    //     });
+    // }
 };
