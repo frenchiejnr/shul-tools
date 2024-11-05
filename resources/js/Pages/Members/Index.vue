@@ -21,7 +21,7 @@ const sort = (column) => {
             sort: column,
             direction: direction.value,
         },
-        { replace: true, preserveState: true }
+        { replace: true, preserveState: true },
     );
 };
 let search = ref(props.filters.search);
@@ -32,9 +32,9 @@ watch(
         router.get(
             "/members",
             { search: value },
-            { replace: true, preserveState: true }
+            { replace: true, preserveState: true },
         );
-    }, 500)
+    }, 500),
 );
 
 function getHebrewName(member, parent) {
@@ -119,7 +119,7 @@ function getHebrewName(member, parent) {
                                                     {{
                                                         getHebrewName(
                                                             member,
-                                                            "father"
+                                                            "father",
                                                         )
                                                     }}
                                                 </div>
@@ -127,7 +127,7 @@ function getHebrewName(member, parent) {
                                                     {{
                                                         getHebrewName(
                                                             member,
-                                                            "mother"
+                                                            "mother",
                                                         )
                                                     }}
                                                 </div>

@@ -17,9 +17,9 @@ watch(
         router.get(
             "/users",
             { search: value },
-            { replace: true, preserveState: true }
+            { replace: true, preserveState: true },
         );
-    }, 500)
+    }, 500),
 );
 </script>
 

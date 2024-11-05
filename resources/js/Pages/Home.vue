@@ -14,7 +14,7 @@ const geoLocation = new Location(
     longitude,
     0,
     timezone,
-    "Manchester"
+    "Manchester",
 );
 const options = {
     hour: "numeric",
@@ -27,7 +27,7 @@ const hebrewDate = Zmanim.makeSunsetAwareHDate(geoLocation, new Date(), false);
 const todaysZmanim = new Zmanim(geoLocation, hebrewDate, false);
 
 const weeklySedra = new Sedra(new HDate(hebrewDate).getFullYear(), false).get(
-    hebrewDate
+    hebrewDate,
 );
 
 const candleLighting = HebrewCalendar.calendar({
@@ -59,7 +59,7 @@ const zmanim = ref([
         name: "Dawn",
         time: Zmanim.formatTime(
             todaysZmanim.alotHaShachar(),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "later",
         hebrewName: "עלות השחר",
@@ -69,7 +69,7 @@ const zmanim = ref([
         name: "Earliest Tallis & Tefillin A",
         time: Zmanim.formatTime(
             todaysZmanim.timeAtAngle(11, true),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "later",
         hebrewName: "זמן ציצית ותפילין א",
@@ -78,9 +78,9 @@ const zmanim = ref([
         name: "Earliest Tallis & Tefillin B",
         time: Zmanim.formatTime(
             new Date(
-                todaysZmanim.timeAtAngle(12, true).getTime() + 15 * 60 * 1000
+                todaysZmanim.timeAtAngle(12, true).getTime() + 15 * 60 * 1000,
             ),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "later",
         hebrewName: "זמן ציצית ותפילין ב",
@@ -89,7 +89,7 @@ const zmanim = ref([
         name: "Sunrise",
         time: Zmanim.formatTime(
             todaysZmanim.sunrise(),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "later",
         hebrewName: "הנץ החמה",
@@ -99,9 +99,9 @@ const zmanim = ref([
         time: Zmanim.formatTime(
             new Date(
                 todaysZmanim.timeAtAngle(12, true).getTime() +
-                    manchesterTemporalHour(12, 7.08)[1] * 3
+                    manchesterTemporalHour(12, 7.08)[1] * 3,
             ),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "earlier",
         hebrewName: "סוף זמן קריאת שמע מגן אברהם",
@@ -110,7 +110,7 @@ const zmanim = ref([
         name: "Shema GRA",
         time: Zmanim.formatTime(
             todaysZmanim.sofZmanShma(),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "earlier",
         hebrewName: "סוף זמן קריאת שמע גרא",
@@ -120,7 +120,7 @@ const zmanim = ref([
         time: Zmanim.formatTime(
             todaysZmanim.timeAtAngle(12, true).getTime() +
                 manchesterTemporalHour(12, 7.08)[1] * 4,
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "earlier",
         hebrewName: " סוף זמן תפילה מגן אברהם ",
@@ -129,7 +129,7 @@ const zmanim = ref([
         name: "Shacharis GRA",
         time: Zmanim.formatTime(
             todaysZmanim.sofZmanTfilla(),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "earlier",
         hebrewName: "סוף זמן תפילה גרא",
@@ -138,7 +138,7 @@ const zmanim = ref([
         name: "Chatzos",
         time: Zmanim.formatTime(
             todaysZmanim.chatzot(),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "later",
         hebrewName: "חצות",
@@ -148,9 +148,9 @@ const zmanim = ref([
         time: Zmanim.formatTime(
             Math.max(
                 todaysZmanim.minchaGedola(),
-                new Date(todaysZmanim.chatzot().getTime() + 30 * 60 * 1000)
+                new Date(todaysZmanim.chatzot().getTime() + 30 * 60 * 1000),
             ),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "later",
         hebrewName: "מנחה גדולה",
@@ -159,7 +159,7 @@ const zmanim = ref([
         name: "Mincha Ketana",
         time: Zmanim.formatTime(
             todaysZmanim.minchaKetana(),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "later",
         hebrewName: "מנחה קטנה",
@@ -168,7 +168,7 @@ const zmanim = ref([
         name: "Plag GRA",
         time: Zmanim.formatTime(
             todaysZmanim.plagHaMincha(),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "earlier",
         hebrewName: "פלג המנחה גרא",
@@ -178,7 +178,7 @@ const zmanim = ref([
         time: Zmanim.formatTime(
             todaysZmanim.timeAtAngle(12, true).getTime() +
                 manchesterTemporalHour(12, 7.08)[1] * 10.75,
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "earlier",
         hebrewName: "פלג המנחה מגן אברהם",
@@ -187,7 +187,7 @@ const zmanim = ref([
         name: "Sunset",
         time: Zmanim.formatTime(
             todaysZmanim.sunset(),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "earlier",
         hebrewName: "שקיעה",
@@ -197,7 +197,7 @@ const zmanim = ref([
         stringency: "later",
         time: Zmanim.formatTime(
             todaysZmanim.timeAtAngle(7.08, false),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         hebrewName: "צאת הכוכבים",
     },
@@ -206,7 +206,7 @@ const zmanim = ref([
         stringency: "later",
         time: Zmanim.formatTime(
             todaysZmanim.sunsetOffset(72),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         hebrewName: "צאת הכוכבים ר'ת",
     },
@@ -255,7 +255,7 @@ function formatTanachBookName(bookName) {
 
     return bookName.replace(
         new RegExp(Object.keys(tanachBookNames).join("|"), "g"),
-        (match) => tanachBookNames[match]
+        (match) => tanachBookNames[match],
     );
 }
 const leyning = getLeyningOnDate(candleLighting[1].date);

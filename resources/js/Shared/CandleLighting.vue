@@ -42,7 +42,7 @@ defineProps<{
                                         class="flex items-center justify-center">
                                         {{
                                             candleLighting[0].date.renderGematriya(
-                                                true
+                                                true,
                                             )
                                         }}
                                     </h2>
@@ -59,7 +59,7 @@ defineProps<{
                                                 .filter(
                                                     (e) =>
                                                         e.desc ===
-                                                        "Candle lighting"
+                                                        "Candle lighting",
                                                 )[0]
                                                 .render("ashkenazi")
                                         }}
@@ -72,7 +72,8 @@ defineProps<{
                                         {{
                                             candleLighting
                                                 .filter(
-                                                    (e) => e.desc === "Havdalah"
+                                                    (e) =>
+                                                        e.desc === "Havdalah",
                                                 )[0]
                                                 .render("ashkenazi")
                                         }}
@@ -91,7 +92,7 @@ defineProps<{
                                         <p>
                                             {{
                                                 formatTanachBookName(
-                                                    leyning?.summary
+                                                    leyning?.summary,
                                                 )
                                             }}
                                         </p>
@@ -109,7 +110,7 @@ defineProps<{
                                         <p>
                                             {{
                                                 formatTanachBookName(
-                                                    leyning.haftara
+                                                    leyning.haftara,
                                                 )
                                             }}
                                         </p>

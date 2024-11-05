@@ -14,17 +14,17 @@ watch(
             {
                 length: calcDaysInMonth(model.value[2], model.value[1]),
             },
-            (_, i) => i + 1
+            (_, i) => i + 1,
         );
     },
-    { immediate: true }
+    { immediate: true },
 );
 watch(
     () => model.value[2],
     () => {
         months.value = getJewishMonthsInOrder(model.value[2]);
     },
-    { immediate: true }
+    { immediate: true },
 );
 </script>
 
