@@ -12,7 +12,7 @@ const isLoggedIn = computed(() => !!page.props.auth?.user?.username);
     <nav
         class="mt-3 sm:ml-6 sm:mt-0 sm:space-x-6 md:flex-row md:space-x-0 md:space-y-6 lg:space-y-0">
         <ul
-            class="flex justify-around space-x-6 md:flex-row md:space-x-6 md:space-y-0">
+            class="flex flex-wrap justify-around space-x-6 sm:flex-nowrap md:flex-row md:space-x-6 md:space-y-0">
             <li>
                 <NavLink href="/" :active="$page.component === 'Home'">
                     Home

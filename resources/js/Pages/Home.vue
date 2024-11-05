@@ -4,6 +4,7 @@ import { ref } from "vue";
 import { HDate, Zmanim, Location, Sedra, HebrewCalendar } from "@hebcal/core";
 import DailyZmanim from "../Shared/DailyZmanim.vue";
 import { getLeyningOnDate } from "@hebcal/leyning";
+import CandleLighting from "../Shared/CandleLighting.vue";
 
 const latitude = 53.52469444;
 const longitude = -2.25694444;
@@ -259,6 +260,14 @@ function formatTanachBookName(bookName) {
 }
 const leyning = getLeyningOnDate(candleLighting[1].date);
 console.log(leyning);
+
+const nextCandleLighting = () => {
+    return candleLighting[0]?.linkedEvent
+        ? candleLighting[0]?.linkedEvent.render("ashkenazi")
+        : candleLighting
+              .filter((e) => Object.hasOwn(e, "parsha"))[0]
+              .render("ashkenazi");
+};
 </script>
 
 <template>
@@ -268,86 +277,31 @@ console.log(leyning);
             content="Home Information"
             head-key="description" />
     </Head>
-    <div class="mb-6 flex items-center justify-between">
-        <h1 class="text-3xl">Home</h1>
-        <div class="text-right text-xl">
-            <p>
-                {{
-                    new Intl.DateTimeFormat("en-GB", {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                    }).format(new Date())
-                }}
-            </p>
-            <p>{{ date }}</p>
-        </div>
-    </div>
-    <div>
-        <DailyZmanim :zmanim />
-    </div>
-    <div>
-        <div class="mb-6 flex items-center justify-center">
-            <h2 class="mr-3 text-xl">Next Sedra</h2>
-            <h2 class="text-xl">{{ weeklySedra[0] }}</h2>
-        </div>
-        <div class="mb-6">
-            <p class="mb-2 text-lg">Next Candle Lighting:</p>
-            <div class="">
-                <div class="flex justify-between">
-                    <p>
-                        <!-- {{
-                            candleLighting[0]?.linkedEvent
-                                ? candleLighting[0]?.linkedEvent.render(
-                                    "ashkenazi"
-                                )
-                                : candleLighting
-                                    .filter(
-                                        (e) =>
-                                            e.constructor.name ===
-                                            "ParshaEvent"
-                                    )[0]
-                                    .render("ashkenazi")
-                        }} -->
-                    </p>
-                    <p>{{ candleLighting[0].date.renderGematriya(true) }}</p>
-                </div>
-                <div class="flex justify-between">
-                                        <p v-if="leyning.reason">
-                        Leyning: ({{ leyning.reason.M }})
-                    </p>
-                    <p v-else>Leyning:</p>
-                    <p>
-                        {{ formatTanachBookName(leyning.summary) }}
-                    </p>
-                </div>
-                <div class="flex justify-between">
-                    <p v-if="leyning.reason">
-                        Haftarah: ({{ leyning.reason.haftara }})
-                    </p>
-                    <p v-else>Haftarah:</p>
-                    <p>
-                        {{ formatTanachBookName(leyning.haftara) }}
-                    </p>
-                </div>
-            </div>
-
-            <div class="mt-6 flex justify-between">
-                <h1>
+    <div class="mx-auto max-w-3xl">
+        <div class="mb-6 flex items-center justify-between">
+            <h1 class="text-3xl">Home</h1>
+            <div class="text-right text-xl">
+                <p>
                     {{
-                        candleLighting
-                            .filter((e) => e.desc === "Candle lighting")[0]
-                            .render("ashkenazi")
+                        new Intl.DateTimeFormat("en-GB", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                        }).format(new Date())
                     }}
-                </h1>
-                <h1>
-                    {{
-                        candleLighting
-                            .filter((e) => e.desc === "Havdalah")[0]
-                            .render("ashkenazi")
-                    }}
-                </h1>
+                </p>
+                <p>{{ date }}</p>
             </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-3 sm:gap-4">
+            <DailyZmanim :zmanim class="sm:col-span-2" />
+            <CandleLighting
+                :weeklySedra="weeklySedra"
+                :nextCandleLighting="nextCandleLighting"
+                :candleLighting="candleLighting"
+                :leyning="leyning"
+                :formatTanachBookName="formatTanachBookName"
+                class="" />
         </div>
     </div>
 </template>
