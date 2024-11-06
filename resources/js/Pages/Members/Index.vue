@@ -3,6 +3,7 @@ import { Link, Head, router } from "@inertiajs/vue3";
 import Pagination from "@/Shared/Pagination.vue";
 import { ref, watch } from "vue";
 import debounce from "lodash/debounce";
+import { getHebrewName } from "../../Shared/utils";
 let props = defineProps({
     members: Object,
     filters: Object,
@@ -36,20 +37,6 @@ watch(
         );
     }, 500),
 );
-
-function getHebrewName(member, parent) {
-    const prefix = member.gender === "male" ? "ben" : "bas";
-    const status =
-        member.paternal_status === "yisrael"
-            ? ""
-            : `Ha${member.paternal_status}`;
-
-    return `${member.hebrew_name} ${prefix} ${
-        parent === "father"
-            ? `${member.fathers_hebrew_name} ${status}`
-            : member.mothers_hebrew_name
-    }`;
-}
 </script>
 
 <template>
