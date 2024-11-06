@@ -11,7 +11,7 @@ console.log(props.member);
         <div
             class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div class="mb-2 flex items-center sm:mb-0">
-                <h1 class="text-3xl">Members</h1>
+                <h1 class="text-3xl">Yahrzeits</h1>
             </div>
         </div>
         <div class="flex flex-col">
@@ -28,7 +28,7 @@ console.log(props.member);
                                     class="flex flex-col">
                                     <td
                                         v-if="yahrzeit.father_yahrtzeit_date"
-                                        class="whitespace-nowrap border-r-2 p-1 sm:px-6 sm:py-4">
+                                        class="border-r-2 p-1 sm:px-6 sm:py-4">
                                         <div
                                             class="flex flex-col justify-between sm:flex-row sm:items-center">
                                             <div
@@ -41,7 +41,7 @@ console.log(props.member);
                                                 Father
                                             </div>
                                             <div
-                                                class="basis-2/6 text-sm font-light sm:font-medium">
+                                                class="basis-2/6 text-wrap text-right text-sm font-light sm:font-medium">
                                                 {{
                                                     getParentName(
                                                         yahrzeit,
@@ -50,7 +50,7 @@ console.log(props.member);
                                                 }}
                                             </div>
                                             <div
-                                                class="basis-1/6 text-right text-sm font-light sm:font-medium">
+                                                class="basis-2/6 text-right text-sm font-light sm:font-medium">
                                                 {{
                                                     yahrzeit.father_yahrtzeit_date
                                                 }}
@@ -60,7 +60,7 @@ console.log(props.member);
 
                                     <td
                                         v-if="yahrzeit.mother_yahrtzeit_date"
-                                        class="whitespace-nowrap border-r-2 p-1 sm:px-6 sm:py-4">
+                                        class="border-r-2 p-1 sm:px-6 sm:py-4">
                                         <div
                                             class="flex flex-col justify-between sm:flex-row sm:items-center">
                                             <div
@@ -73,7 +73,7 @@ console.log(props.member);
                                                 Mother
                                             </div>
                                             <div
-                                                class="basis-2/6 text-sm font-light sm:font-medium">
+                                                class="basis-2/6 text-wrap text-right text-sm font-light sm:font-medium">
                                                 {{
                                                     getParentName(
                                                         yahrzeit,
@@ -82,7 +82,7 @@ console.log(props.member);
                                                 }}
                                             </div>
                                             <div
-                                                class="basis-1/6 text-right text-sm font-light sm:font-medium">
+                                                class="basis-2/6 text-right text-sm font-light sm:font-medium">
                                                 {{
                                                     yahrzeit.mother_yahrtzeit_date
                                                 }}
