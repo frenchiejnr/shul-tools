@@ -57,7 +57,9 @@ class ShulMembersController extends Controller
             'direction' => $direction,
             'filters' => Request::only(['search']),
             'can' => [
-                'createMember' => Auth::user()->isAdmin() ?? Auth::user()->can('create', ShulMembers::class)
+                'createMember' => Auth::user()->isAdmin() ?? Auth::user()->can('create', ShulMembers::class),
+                'viewYahrzeits' => Auth::user()->isAdmin() ?? Auth::user()->can('yahrzeits', ShulMembers::class)
+
             ]
         ]);
     }
@@ -175,5 +177,32 @@ class ShulMembersController extends Controller
         ]);
         $member->update($data);
         return redirect('/members');
+    }
+
+    public function yahrzeit()
+    {
+        return Inertia::render(
+            'Members/Yahrzeits',
+            [
+                'member' => ShulMembers::where(function ($query) {
+                    $query->whereNotNull('ancestors.mother_yahrtzeit_date')
+                        ->orWhereNotNull('ancestors.father_yahrtzeit_date');
+                })
+                    ->join('ancestors', 'shul_members.ancestors_id', '=', 'ancestors.id')
+                    ->select(
+                        'forenames',
+                        'surname',
+                        'ancestors.fathers_hebrew_name',
+                        'ancestors.paternal_grandfather_hebrew_name',
+                        'ancestors.mothers_hebrew_name',
+                        'ancestors.maternal_grandfather_hebrew_name',
+                        'paternal_status',
+                        'ancestors.maternal_status',
+                        'ancestors.father_yahrtzeit_date',
+                        'ancestors.mother_yahrtzeit_date',
+                    )
+                    ->get()
+            ]
+        );
     }
 }

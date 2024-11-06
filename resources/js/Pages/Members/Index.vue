@@ -65,6 +65,12 @@ function getHebrewName(member, parent) {
                     class="ml-2 text-sm text-blue-500">
                     New Member
                 </Link>
+                <Link
+                    v-if="can.viewYahrzeits"
+                    href="/members/yahrzeits"
+                    class="ml-2 text-sm text-blue-500">
+                    Yahrzeits
+                </Link>
             </div>
             <div class="flex flex-col sm:flex-row sm:items-center">
                 <input
