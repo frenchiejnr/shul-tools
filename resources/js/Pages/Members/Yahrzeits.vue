@@ -1,9 +1,8 @@
 <script setup>
-import { getHebrewName, getParentName } from "../../Shared/utils";
+import YahrzeitTableRow from "../../Shared/YahrzeitTableRow.vue";
 let props = defineProps({
     member: Object,
 });
-console.log(props.member);
 </script>
 
 <template>
@@ -26,69 +25,14 @@ console.log(props.member);
                                     v-for="yahrzeit in member"
                                     :key="member.id"
                                     class="flex flex-col">
-                                    <td
+                                    <YahrzeitTableRow
                                         v-if="yahrzeit.father_yahrtzeit_date"
-                                        class="border-r-2 p-1 sm:px-6 sm:py-4">
-                                        <div
-                                            class="flex flex-col justify-between sm:flex-row sm:items-center">
-                                            <div
-                                                class="basis-2/6 text-sm font-medium text-gray-900">
-                                                {{ yahrzeit.forenames }}
-                                                {{ yahrzeit.surname }}
-                                            </div>
-                                            <div
-                                                class="basis-1/6 text-sm font-medium text-gray-900">
-                                                Father
-                                            </div>
-                                            <div
-                                                class="basis-2/6 text-wrap text-right text-sm font-light sm:font-medium">
-                                                {{
-                                                    getParentName(
-                                                        yahrzeit,
-                                                        "father",
-                                                    )
-                                                }}
-                                            </div>
-                                            <div
-                                                class="basis-2/6 text-right text-sm font-light sm:font-medium">
-                                                {{
-                                                    yahrzeit.father_yahrtzeit_date
-                                                }}
-                                            </div>
-                                        </div>
-                                    </td>
-
-                                    <td
+                                        :yahrzeit="yahrzeit"
+                                        parent="father" />
+                                    <YahrzeitTableRow
                                         v-if="yahrzeit.mother_yahrtzeit_date"
-                                        class="border-r-2 p-1 sm:px-6 sm:py-4">
-                                        <div
-                                            class="flex flex-col justify-between sm:flex-row sm:items-center">
-                                            <div
-                                                class="basis-2/6 text-sm font-medium text-gray-900">
-                                                {{ yahrzeit.forenames }}
-                                                {{ yahrzeit.surname }}
-                                            </div>
-                                            <div
-                                                class="basis-1/6 text-sm font-medium text-gray-900">
-                                                Mother
-                                            </div>
-                                            <div
-                                                class="basis-2/6 text-wrap text-right text-sm font-light sm:font-medium">
-                                                {{
-                                                    getParentName(
-                                                        yahrzeit,
-                                                        "mother",
-                                                    )
-                                                }}
-                                            </div>
-                                            <div
-                                                class="basis-2/6 text-right text-sm font-light sm:font-medium">
-                                                {{
-                                                    yahrzeit.mother_yahrtzeit_date
-                                                }}
-                                            </div>
-                                        </div>
-                                    </td>
+                                        :yahrzeit="yahrzeit"
+                                        parent="mother" />
                                 </tr>
                             </tbody>
                         </table>
