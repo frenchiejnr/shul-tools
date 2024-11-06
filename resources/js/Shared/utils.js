@@ -13,10 +13,7 @@ export const getHebrewName = (member, parent) => {
             ? ""
             : `Ha${member.paternal_status}`;
 
-    const parentName =
-        parent === "father"
-            ? member.fathers_hebrew_name
-            : member.mothers_hebrew_name;
+    const parentName = member[`${parent}s_hebrew_name`];
 
     const fullName =
         parent === "father"
