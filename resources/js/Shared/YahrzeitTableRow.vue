@@ -22,7 +22,7 @@ const previousEvening = new Date(nextYahrzeit?.getTime() - 1000 * 60 * 60 * 24)
         weekday: "short",
         day: "numeric",
     })
-    .replace(/(\w{3})/, "$1 Night");
+    .replace(/(\w{3})/, "$1 Night,");
 </script>
 
 <template>

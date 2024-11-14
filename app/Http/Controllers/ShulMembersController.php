@@ -7,6 +7,8 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ShulMembers;
 use App\Models\Ancestors;
+use App\Mail\Yahrzeits;
+use Illuminate\Support\Facades\Mail;
 
 class ShulMembersController extends Controller
 {
@@ -204,5 +206,11 @@ class ShulMembersController extends Controller
                     ->get()
             ]
         );
+    }
+
+    public function sendYahrzeits()
+    {
+        // Mail::to('frenchiejnr@gmail.com')->send(new Yahrzeits());
+        return (new Yahrzeits())->render();
     }
 }

@@ -1,4 +1,5 @@
 <script setup>
+import { Link } from "@inertiajs/vue3";
 import YahrzeitTableRow from "../../Shared/YahrzeitTableRow.vue";
 let props = defineProps({
     member: Object,
@@ -12,6 +13,11 @@ let props = defineProps({
             <div class="mb-2 flex items-center sm:mb-0">
                 <h1 class="text-3xl">Yahrzeits</h1>
             </div>
+            <Link
+                href="/members/sendYahrzeits"
+                class="ml-2 text-sm text-blue-500">
+                Email
+            </Link>
         </div>
         <div class="flex flex-col">
             <div class="-my-2 overflow-x-auto lg:-mx-8">
