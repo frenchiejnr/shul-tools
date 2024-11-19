@@ -1,8 +1,25 @@
 <script setup>
-import { Link, router } from "@inertiajs/vue3";
+import { router } from "@inertiajs/vue3";
 import YahrzeitTableRow from "../../Shared/YahrzeitTableRow.vue";
+import { getNextYahrzeit, getParentName } from "../../Shared/utils";
+
 let props = defineProps({
     member: Object,
+});
+
+props.member.forEach((member) => {
+    member.father_full_hebrew_name = getParentName(member, "father");
+    member.mother_full_hebrew_name = getParentName(member, "mother");
+    if (member.father_yahrtzeit_date) {
+        member.father_next_english_date = getNextYahrzeit(
+            member.father_yahrtzeit_date,
+        );
+    }
+    if (member.mother_yahrtzeit_date) {
+        member.mother_next_english_date = getNextYahrzeit(
+            member.mother_yahrtzeit_date,
+        );
+    }
 });
 </script>
 
@@ -36,11 +53,19 @@ let props = defineProps({
                                     :key="member.id"
                                     class="flex flex-col">
                                     <YahrzeitTableRow
-                                        v-if="yahrzeit.father_yahrtzeit_date"
+                                        v-if="
+                                            yahrzeit.father_next_english_date &&
+                                            yahrzeit.father_next_english_date
+                                                .date
+                                        "
                                         :yahrzeit="yahrzeit"
                                         parent="father" />
                                     <YahrzeitTableRow
-                                        v-if="yahrzeit.mother_yahrtzeit_date"
+                                        v-if="
+                                            yahrzeit.mother_next_english_date &&
+                                            yahrzeit.mother_next_english_date
+                                                .date
+                                        "
                                         :yahrzeit="yahrzeit"
                                         parent="mother" />
                                 </tr>
