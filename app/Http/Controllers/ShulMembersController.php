@@ -73,6 +73,8 @@ class ShulMembersController extends Controller
     public function store()
     {
 
+
+
         $data = Request::validate([
             'forenames' => ['required', 'max:255'],
             'surname' => ['required', 'max:255'],
@@ -208,9 +210,11 @@ class ShulMembersController extends Controller
         );
     }
 
+
     public function sendYahrzeits()
     {
-        // Mail::to('frenchiejnr@gmail.com')->send(new Yahrzeits());
-        return (new Yahrzeits())->render();
+        $members = Request::get('member');
+        // Mail::to('frenchiejnr@gmail.com')->send(new Yahrzeits($members));
+        return (new Yahrzeits($members))->render();
     }
 }
