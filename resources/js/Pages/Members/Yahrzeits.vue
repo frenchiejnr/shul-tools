@@ -7,19 +7,46 @@ let props = defineProps({
     member: Object,
 });
 
-props.member.forEach((member) => {
-    member.father_full_hebrew_name = getParentName(member, "father");
-    member.mother_full_hebrew_name = getParentName(member, "mother");
+let yarhrzeits = props.member.reduce((acc, member) => {
     if (member.father_yahrtzeit_date) {
-        member.father_next_english_date = getNextYahrzeit(
-            member.father_yahrtzeit_date,
-        );
+        let newMember = { ...member };
+        newMember.father_full_hebrew_name = getParentName(member, "father");
+        //remove all references to mother in newMember
+        delete newMember.mothers_hebrew_name;
+        delete newMember.maternal_grandfather_hebrew_name;
+        delete newMember.maternal_status;
+        delete newMember.mother_yahrtzeit_date;
+        if (member.father_yahrtzeit_date) {
+            newMember.father_next_english_date = getNextYahrzeit(
+                member.father_yahrtzeit_date,
+            );
+        }
+        acc.push(newMember);
     }
     if (member.mother_yahrtzeit_date) {
-        member.mother_next_english_date = getNextYahrzeit(
-            member.mother_yahrtzeit_date,
-        );
+        let newMember = { ...member };
+        newMember.mother_full_hebrew_name = getParentName(member, "mother");
+        delete newMember.fathers_hebrew_name;
+        delete newMember.paternal_grandfather_hebrew_name;
+        delete newMember.paternal_status;
+        delete newMember.father_yahrtzeit_date;
+        if (member.mother_yahrtzeit_date) {
+            newMember.mother_next_english_date = getNextYahrzeit(
+                member.mother_yahrtzeit_date,
+            );
+        }
+        acc.push(newMember);
     }
+    return acc;
+}, []);
+// sort the yahrzeits by mother or father next english date
+yarhrzeits.sort((a, b) => {
+    let dateA =
+        a.mother_next_english_date?.date || a.father_next_english_date?.date;
+    let dateB =
+        b.mother_next_english_date?.date || b.father_next_english_date?.date;
+
+    return new Date(dateA) - new Date(dateB);
 });
 </script>
 
@@ -33,7 +60,7 @@ props.member.forEach((member) => {
             <button
                 @click="
                     router.post('/members/sendYahrzeits', {
-                        member: props.member,
+                        member: yarhrzeits,
                     })
                 "
                 class="ml-2 text-sm text-blue-500 hover:text-blue-700">
@@ -49,9 +76,9 @@ props.member.forEach((member) => {
                         <table class="min-w-full divide-y divide-gray-200">
                             <tbody class="divide-y divide-gray-200 bg-white">
                                 <tr
-                                    v-for="yahrzeit in member"
-                                    :key="member.id"
-                                    class="flex flex-col">
+                                    v-for="yahrzeit in yarhrzeits"
+                                    :key="yahrzeit.id"
+                                    class="flex flex-col border-none">
                                     <YahrzeitTableRow
                                         v-if="
                                             yahrzeit.father_next_english_date &&

@@ -55,14 +55,28 @@ export const getParentName = (member, parent) => {
 };
 
 export const getNextYahrzeit = (hebrewDate) => {
-    const gregDate = HebrewCalendar.getYahrzeit(
-        5785,
+    let year = 5785;
+    let gregDate = HebrewCalendar.getYahrzeit(
+        year,
         new HDate(
             hebrewDate.split("-")[0],
             hebrewDate.split("-")[1],
             hebrewDate.split("-")[2],
         ),
     )?.greg();
+
+    const currentDate = new Date();
+    if (gregDate && gregDate < currentDate) {
+        year += 1;
+        gregDate = HebrewCalendar.getYahrzeit(
+            year,
+            new HDate(
+                hebrewDate.split("-")[0],
+                hebrewDate.split("-")[1],
+                hebrewDate.split("-")[2],
+            ),
+        )?.greg();
+    }
 
     if (!gregDate) {
         return {

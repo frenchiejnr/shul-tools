@@ -214,6 +214,15 @@ class ShulMembersController extends Controller
     public function sendYahrzeits()
     {
         $members = Request::get('member');
+        usort($members, function ($a, $b) {
+            $aDate = $a['father_next_english_date']['date'] ?? $a['mother_next_english_date']['date'] ?? null;
+            $bDate = $b['father_next_english_date']['date'] ?? $b['mother_next_english_date']['date'] ?? null;
+
+            if ($aDate === $bDate) {
+                return 0;
+            }
+            return ($aDate < $bDate) ? -1 : 1;
+        });
         // Mail::to('frenchiejnr@gmail.com')->send(new Yahrzeits($members));
         return (new Yahrzeits($members))->render();
     }

@@ -13,7 +13,7 @@ const nextYahrzeit = getNextYahrzeit(hebrewDate);
 </script>
 
 <template>
-    <td class="border-r-2 p-1 sm:px-4 sm:py-4">
+    <td class="border-b-2 border-r-2 p-1 sm:px-4 sm:py-4">
         <div class="flex flex-col justify-between sm:flex-row sm:items-center">
             <div class="basis-2/6 text-sm font-medium text-gray-900">
                 {{ yahrzeit.forenames }}
