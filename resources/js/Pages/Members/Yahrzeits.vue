@@ -7,12 +7,16 @@ import {
     isWithinXDays,
     sortByNextYahrzeit,
 } from "../../Shared/utils";
+import { ref, watch } from "vue";
 
 let props = defineProps({
     member: Object,
 });
 
-let yahrzeits = props.member.flatMap((member) => {
+let yahrzeits = ref([]);
+let yahrzeitDays = ref(7);
+
+let filteredYahrzeits = props.member.flatMap((member) => {
     const getYahrzeit = (parent) => {
         if (!member[`${parent}_yahrtzeit_date`]) return null;
         return {
@@ -24,16 +28,30 @@ let yahrzeits = props.member.flatMap((member) => {
         };
     };
 
-    return [getYahrzeit("father"), getYahrzeit("mother")]
-        .filter(Boolean)
-        .filter(
-            (yahrzeit) =>
-                isWithinXDays(yahrzeit.father_next_english_date?.date, 7) ||
-                isWithinXDays(yahrzeit.mother_next_english_date?.date, 7),
-        );
+    return [getYahrzeit("father"), getYahrzeit("mother")].filter(Boolean);
 });
 
-yahrzeits.sort(sortByNextYahrzeit);
+watch(
+    yahrzeitDays,
+    (newYahrzeitDays) => {
+        yahrzeits = filteredYahrzeits.filter((yahrzeit) => {
+            return (
+                isWithinXDays(
+                    yahrzeit.father_next_english_date?.date,
+                    newYahrzeitDays,
+                ) ||
+                isWithinXDays(
+                    yahrzeit.mother_next_english_date?.date,
+                    newYahrzeitDays,
+                )
+            );
+        });
+        yahrzeits.sort(sortByNextYahrzeit);
+    },
+    {
+        immediate: true,
+    },
+);
 </script>
 
 <template>
@@ -42,6 +60,17 @@ yahrzeits.sort(sortByNextYahrzeit);
             class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div class="mb-2 flex items-center sm:mb-0">
                 <h1 class="text-3xl">Yahrzeits</h1>
+            </div>
+            <div class="flex items-center">
+                <label for="yahrzeitDays" class="mr-2 text-sm">
+                    Yahrzeits in next
+                </label>
+                <input
+                    v-model.number="yahrzeitDays"
+                    type="text"
+                    placeholder="search..."
+                    class="w-16 border border-gray-400 p-1" />
+                <span class="ml-2 text-sm">Days</span>
             </div>
             <button
                 @click="
