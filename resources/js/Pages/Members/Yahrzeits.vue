@@ -67,11 +67,21 @@ watch(
                 </label>
                 <input
                     v-model.number="yahrzeitDays"
-                    type="text"
-                    placeholder="search..."
+                    type="number"
+                    placeholder="days"
+                    min="0"
+                    max="366"
                     class="w-16 border border-gray-400 p-1" />
                 <span class="ml-2 text-sm">Days</span>
             </div>
+            <p>
+                {{
+                    yahrzeits.length === 1
+                        ? "1 Yahrzeit"
+                        : `${yahrzeits.length} Yahrzeits`
+                }}
+                found
+            </p>
             <button
                 @click="
                     router.post('/members/sendYahrzeits', {
