@@ -1,53 +1,39 @@
 <script setup>
 import { router } from "@inertiajs/vue3";
 import YahrzeitTableRow from "../../Shared/YahrzeitTableRow.vue";
-import { getNextYahrzeit, getParentName } from "../../Shared/utils";
+import {
+    getNextYahrzeit,
+    getParentName,
+    isWithinXDays,
+    sortByNextYahrzeit,
+} from "../../Shared/utils";
 
 let props = defineProps({
     member: Object,
 });
 
-let yarhrzeits = props.member.reduce((acc, member) => {
-    if (member.father_yahrtzeit_date) {
-        let newMember = { ...member };
-        newMember.father_full_hebrew_name = getParentName(member, "father");
-        //remove all references to mother in newMember
-        delete newMember.mothers_hebrew_name;
-        delete newMember.maternal_grandfather_hebrew_name;
-        delete newMember.maternal_status;
-        delete newMember.mother_yahrtzeit_date;
-        if (member.father_yahrtzeit_date) {
-            newMember.father_next_english_date = getNextYahrzeit(
-                member.father_yahrtzeit_date,
-            );
-        }
-        acc.push(newMember);
-    }
-    if (member.mother_yahrtzeit_date) {
-        let newMember = { ...member };
-        newMember.mother_full_hebrew_name = getParentName(member, "mother");
-        delete newMember.fathers_hebrew_name;
-        delete newMember.paternal_grandfather_hebrew_name;
-        delete newMember.paternal_status;
-        delete newMember.father_yahrtzeit_date;
-        if (member.mother_yahrtzeit_date) {
-            newMember.mother_next_english_date = getNextYahrzeit(
-                member.mother_yahrtzeit_date,
-            );
-        }
-        acc.push(newMember);
-    }
-    return acc;
-}, []);
-// sort the yahrzeits by mother or father next english date
-yarhrzeits.sort((a, b) => {
-    let dateA =
-        a.mother_next_english_date?.date || a.father_next_english_date?.date;
-    let dateB =
-        b.mother_next_english_date?.date || b.father_next_english_date?.date;
+let yahrzeits = props.member.flatMap((member) => {
+    const getYahrzeit = (parent) => {
+        if (!member[`${parent}_yahrtzeit_date`]) return null;
+        return {
+            ...member,
+            [`${parent}_full_hebrew_name`]: getParentName(member, parent),
+            [`${parent}_next_english_date`]: getNextYahrzeit(
+                member[`${parent}_yahrtzeit_date`],
+            ),
+        };
+    };
 
-    return new Date(dateA) - new Date(dateB);
+    return [getYahrzeit("father"), getYahrzeit("mother")]
+        .filter(Boolean)
+        .filter(
+            (yahrzeit) =>
+                isWithinXDays(yahrzeit.father_next_english_date?.date, 7) ||
+                isWithinXDays(yahrzeit.mother_next_english_date?.date, 7),
+        );
 });
+
+yahrzeits.sort(sortByNextYahrzeit);
 </script>
 
 <template>
@@ -60,7 +46,7 @@ yarhrzeits.sort((a, b) => {
             <button
                 @click="
                     router.post('/members/sendYahrzeits', {
-                        member: yarhrzeits,
+                        member: yahrzeits,
                     })
                 "
                 class="ml-2 text-sm text-blue-500 hover:text-blue-700">
@@ -76,7 +62,7 @@ yarhrzeits.sort((a, b) => {
                         <table class="min-w-full divide-y divide-gray-200">
                             <tbody class="divide-y divide-gray-200 bg-white">
                                 <tr
-                                    v-for="yahrzeit in yarhrzeits"
+                                    v-for="yahrzeit in yahrzeits"
                                     :key="yahrzeit.id"
                                     class="flex flex-col border-none">
                                     <YahrzeitTableRow

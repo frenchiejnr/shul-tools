@@ -103,3 +103,20 @@ export const getNextYahrzeit = (hebrewDate) => {
             })}` || null,
     };
 };
+
+export const sortByNextYahrzeit = (yahrzeit1, yahrzeit2) => {
+    const date1 = new Date(
+        yahrzeit1.father_next_english_date?.date ??
+            yahrzeit1.mother_next_english_date?.date,
+    );
+    const date2 = new Date(
+        yahrzeit2.father_next_english_date?.date ??
+            yahrzeit2.mother_next_english_date?.date,
+    );
+    return date1 - date2;
+};
+export const isWithinXDays = (next_english_date, days) => {
+    const today = new Date();
+    const nextWeek = new Date(today.setDate(today.getDate() + days));
+    return next_english_date && new Date(next_english_date) < nextWeek;
+};
