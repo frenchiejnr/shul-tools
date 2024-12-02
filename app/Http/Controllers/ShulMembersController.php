@@ -223,7 +223,7 @@ class ShulMembersController extends Controller
             }
             return ($aDate < $bDate) ? -1 : 1;
         });
-        // Mail::to('frenchiejnr@gmail.com')->send(new Yahrzeits($members));
-        return (new Yahrzeits($members))->render();
+        Mail::to('frenchiejnr@gmail.com')->send(new Yahrzeits($members));
+        // return (new Yahrzeits($members))->render();
     }
 }

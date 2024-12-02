@@ -1,4 +1,3 @@
-@vite(['resources/css/app.css'])
 <div class="mx-auto max-w-3xl">
     <div class="flex flex-col">
         <div class="-my-2 overflow-x-auto lg:-mx-8">
