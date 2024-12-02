@@ -37,6 +37,8 @@ let submit = () => {
 
 <template>
     <Head title="Edit Member" />
-    <h1 class="text-3xl">Edit Member</h1>
-    <MemberForm :submit="submit" :form="form" />
+    <div class="mx-auto max-w-3xl">
+        <h1 class="text-3xl">Edit Member</h1>
+        <MemberForm :submit="submit" :form="form" />
+    </div>
 </template>

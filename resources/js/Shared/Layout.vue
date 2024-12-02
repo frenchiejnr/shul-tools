@@ -17,10 +17,8 @@
             <Nav />
         </header>
     </section>
-    <section class="p-6">
-        <div class="mx-auto max-w-3xl">
-            <slot />
-        </div>
+    <section class="p-2 md:p-6">
+        <slot />
     </section>
 </template>
 

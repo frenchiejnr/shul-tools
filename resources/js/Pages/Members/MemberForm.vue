@@ -189,9 +189,6 @@ defineProps<{
                             form.errors.maternal_grandfather_hebrew_name
                         "></div>
                 </div>
-                <StatusRadio
-                    name="maternal_status"
-                    v-model="form.maternal_status" />
             </div>
             <div class="mb-6">
                 <label
@@ -212,11 +209,14 @@ defineProps<{
                     v-text="form.errors.maternal_grandmother_hebrew_name"></div>
             </div>
         </div>
+        <StatusRadio name="maternal_status" v-model="form.maternal_status" />
+
         <JewishDateSelector v-model="form.mother_yahrtzeit_date">
             <h2 class="mb-2 text-xs font-bold uppercase text-gray-700">
                 Mothers Yahrzeit
             </h2>
         </JewishDateSelector>
+
         <h2 class="mb-6 text-xl">Contact Methods</h2>
         <div class="mb-6">
             <label

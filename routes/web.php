@@ -27,4 +27,5 @@ Route::middleware('auth')->group(function () {
 Route::middleware(AdminUser::class)->group(function () {
     Route::get('/members/create', [ShulMembersController::class, 'create']);
     Route::get('/members/{member:id}/edit', [ShulMembersController::class, 'edit']);
+    Route::get('/members/yahrzeits', [ShulMembersController::class, 'yahrzeit']);
 });

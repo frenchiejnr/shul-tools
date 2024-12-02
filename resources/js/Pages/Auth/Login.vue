@@ -16,7 +16,7 @@ let submit = () => {
 
 <template>
     <Head title="Login Page" />
-    <main class="grid h-4/5 place-items-center">
+    <main class="mx-auto grid h-4/5 max-w-3xl place-items-center">
         <section class="mx-auto mt-8 max-w-md rounded-xl border bg-white p-8">
             <h1 class="mb-6 text-3xl">Login</h1>
             <form @submit.prevent="submit">

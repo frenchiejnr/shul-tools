@@ -4,6 +4,7 @@ import { ref } from "vue";
 import { HDate, Zmanim, Location, Sedra, HebrewCalendar } from "@hebcal/core";
 import DailyZmanim from "../Shared/DailyZmanim.vue";
 import { getLeyningOnDate } from "@hebcal/leyning";
+import CandleLighting from "../Shared/CandleLighting.vue";
 
 const latitude = 53.52469444;
 const longitude = -2.25694444;
@@ -13,7 +14,7 @@ const geoLocation = new Location(
     longitude,
     0,
     timezone,
-    "Manchester"
+    "Manchester",
 );
 const options = {
     hour: "numeric",
@@ -26,7 +27,7 @@ const hebrewDate = Zmanim.makeSunsetAwareHDate(geoLocation, new Date(), false);
 const todaysZmanim = new Zmanim(geoLocation, hebrewDate, false);
 
 const weeklySedra = new Sedra(new HDate(hebrewDate).getFullYear(), false).get(
-    hebrewDate
+    hebrewDate,
 );
 
 const candleLighting = HebrewCalendar.calendar({
@@ -58,7 +59,7 @@ const zmanim = ref([
         name: "Dawn",
         time: Zmanim.formatTime(
             todaysZmanim.alotHaShachar(),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "later",
         hebrewName: "עלות השחר",
@@ -68,7 +69,7 @@ const zmanim = ref([
         name: "Earliest Tallis & Tefillin A",
         time: Zmanim.formatTime(
             todaysZmanim.timeAtAngle(11, true),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "later",
         hebrewName: "זמן ציצית ותפילין א",
@@ -77,9 +78,9 @@ const zmanim = ref([
         name: "Earliest Tallis & Tefillin B",
         time: Zmanim.formatTime(
             new Date(
-                todaysZmanim.timeAtAngle(12, true).getTime() + 15 * 60 * 1000
+                todaysZmanim.timeAtAngle(12, true).getTime() + 15 * 60 * 1000,
             ),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "later",
         hebrewName: "זמן ציצית ותפילין ב",
@@ -88,7 +89,7 @@ const zmanim = ref([
         name: "Sunrise",
         time: Zmanim.formatTime(
             todaysZmanim.sunrise(),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "later",
         hebrewName: "הנץ החמה",
@@ -98,9 +99,9 @@ const zmanim = ref([
         time: Zmanim.formatTime(
             new Date(
                 todaysZmanim.timeAtAngle(12, true).getTime() +
-                    manchesterTemporalHour(12, 7.08)[1] * 3
+                    manchesterTemporalHour(12, 7.08)[1] * 3,
             ),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "earlier",
         hebrewName: "סוף זמן קריאת שמע מגן אברהם",
@@ -109,7 +110,7 @@ const zmanim = ref([
         name: "Shema GRA",
         time: Zmanim.formatTime(
             todaysZmanim.sofZmanShma(),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "earlier",
         hebrewName: "סוף זמן קריאת שמע גרא",
@@ -119,7 +120,7 @@ const zmanim = ref([
         time: Zmanim.formatTime(
             todaysZmanim.timeAtAngle(12, true).getTime() +
                 manchesterTemporalHour(12, 7.08)[1] * 4,
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "earlier",
         hebrewName: " סוף זמן תפילה מגן אברהם ",
@@ -128,7 +129,7 @@ const zmanim = ref([
         name: "Shacharis GRA",
         time: Zmanim.formatTime(
             todaysZmanim.sofZmanTfilla(),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "earlier",
         hebrewName: "סוף זמן תפילה גרא",
@@ -137,7 +138,7 @@ const zmanim = ref([
         name: "Chatzos",
         time: Zmanim.formatTime(
             todaysZmanim.chatzot(),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "later",
         hebrewName: "חצות",
@@ -147,9 +148,9 @@ const zmanim = ref([
         time: Zmanim.formatTime(
             Math.max(
                 todaysZmanim.minchaGedola(),
-                new Date(todaysZmanim.chatzot().getTime() + 30 * 60 * 1000)
+                new Date(todaysZmanim.chatzot().getTime() + 30 * 60 * 1000),
             ),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "later",
         hebrewName: "מנחה גדולה",
@@ -158,7 +159,7 @@ const zmanim = ref([
         name: "Mincha Ketana",
         time: Zmanim.formatTime(
             todaysZmanim.minchaKetana(),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "later",
         hebrewName: "מנחה קטנה",
@@ -167,7 +168,7 @@ const zmanim = ref([
         name: "Plag GRA",
         time: Zmanim.formatTime(
             todaysZmanim.plagHaMincha(),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "earlier",
         hebrewName: "פלג המנחה גרא",
@@ -177,7 +178,7 @@ const zmanim = ref([
         time: Zmanim.formatTime(
             todaysZmanim.timeAtAngle(12, true).getTime() +
                 manchesterTemporalHour(12, 7.08)[1] * 10.75,
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "earlier",
         hebrewName: "פלג המנחה מגן אברהם",
@@ -186,7 +187,7 @@ const zmanim = ref([
         name: "Sunset",
         time: Zmanim.formatTime(
             todaysZmanim.sunset(),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         stringency: "earlier",
         hebrewName: "שקיעה",
@@ -196,7 +197,7 @@ const zmanim = ref([
         stringency: "later",
         time: Zmanim.formatTime(
             todaysZmanim.timeAtAngle(7.08, false),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         hebrewName: "צאת הכוכבים",
     },
@@ -205,7 +206,7 @@ const zmanim = ref([
         stringency: "later",
         time: Zmanim.formatTime(
             todaysZmanim.sunsetOffset(72),
-            new Intl.DateTimeFormat("en-US", options)
+            new Intl.DateTimeFormat("en-US", options),
         ),
         hebrewName: "צאת הכוכבים ר'ת",
     },
@@ -254,11 +255,19 @@ function formatTanachBookName(bookName) {
 
     return bookName.replace(
         new RegExp(Object.keys(tanachBookNames).join("|"), "g"),
-        (match) => tanachBookNames[match]
+        (match) => tanachBookNames[match],
     );
 }
 const leyning = getLeyningOnDate(candleLighting[1].date);
 console.log(leyning);
+
+const nextCandleLighting = () => {
+    return candleLighting[0]?.linkedEvent
+        ? candleLighting[0]?.linkedEvent.render("ashkenazi")
+        : candleLighting
+              .filter((e) => Object.hasOwn(e, "parsha"))[0]
+              .render("ashkenazi");
+};
 </script>
 
 <template>
@@ -268,86 +277,31 @@ console.log(leyning);
             content="Home Information"
             head-key="description" />
     </Head>
-    <div class="mb-6 flex items-center justify-between">
-        <h1 class="text-3xl">Home</h1>
-        <div class="text-right text-xl">
-            <p>
-                {{
-                    new Intl.DateTimeFormat("en-GB", {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                    }).format(new Date())
-                }}
-            </p>
-            <p>{{ date }}</p>
-        </div>
-    </div>
-    <div>
-        <DailyZmanim :zmanim />
-    </div>
-    <div>
-        <div class="mb-6 flex items-center justify-center">
-            <h2 class="mr-3 text-xl">Next Sedra</h2>
-            <h2 class="text-xl">{{ weeklySedra[0] }}</h2>
-        </div>
-        <div class="mb-6">
-            <p class="mb-2 text-lg">Next Candle Lighting:</p>
-            <div class="">
-                <div class="flex justify-between">
-                    <p>
-                        <!-- {{
-                            candleLighting[0]?.linkedEvent
-                                ? candleLighting[0]?.linkedEvent.render(
-                                    "ashkenazi"
-                                )
-                                : candleLighting
-                                    .filter(
-                                        (e) =>
-                                            e.constructor.name ===
-                                            "ParshaEvent"
-                                    )[0]
-                                    .render("ashkenazi")
-                        }} -->
-                    </p>
-                    <p>{{ candleLighting[0].date.renderGematriya(true) }}</p>
-                </div>
-                <div class="flex justify-between">
-                                        <p v-if="leyning.reason">
-                        Leyning: ({{ leyning.reason.M }})
-                    </p>
-                    <p v-else>Leyning:</p>
-                    <p>
-                        {{ formatTanachBookName(leyning.summary) }}
-                    </p>
-                </div>
-                <div class="flex justify-between">
-                    <p v-if="leyning.reason">
-                        Haftarah: ({{ leyning.reason.haftara }})
-                    </p>
-                    <p v-else>Haftarah:</p>
-                    <p>
-                        {{ formatTanachBookName(leyning.haftara) }}
-                    </p>
-                </div>
-            </div>
-
-            <div class="mt-6 flex justify-between">
-                <h1>
+    <div class="mx-auto max-w-3xl">
+        <div class="mb-6 flex items-center justify-between">
+            <h1 class="text-3xl">Home</h1>
+            <div class="text-right text-xl">
+                <p>
                     {{
-                        candleLighting
-                            .filter((e) => e.desc === "Candle lighting")[0]
-                            .render("ashkenazi")
+                        new Intl.DateTimeFormat("en-GB", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                        }).format(new Date())
                     }}
-                </h1>
-                <h1>
-                    {{
-                        candleLighting
-                            .filter((e) => e.desc === "Havdalah")[0]
-                            .render("ashkenazi")
-                    }}
-                </h1>
+                </p>
+                <p>{{ date }}</p>
             </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-3 sm:gap-4">
+            <DailyZmanim :zmanim class="sm:col-span-2" />
+            <CandleLighting
+                :weeklySedra="weeklySedra"
+                :nextCandleLighting="nextCandleLighting"
+                :candleLighting="candleLighting"
+                :leyning="leyning"
+                :formatTanachBookName="formatTanachBookName"
+                class="" />
         </div>
     </div>
 </template>
