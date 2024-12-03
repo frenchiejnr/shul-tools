@@ -4,8 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a77ff2159b612f419cf4f1d6820a43dc",
+    "content-hash": "55e9fe20323b83046ab85299b148ba12",
     "packages": [
+        {
+            "name": "bjnstnkvc/mail-components",
+            "version": "1.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BJNSTNKVC/laravel-mail-components.git",
+                "reference": "9ee023a673255db8059c1c95933f265fc0a54c19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BJNSTNKVC/laravel-mail-components/zipball/9ee023a673255db8059c1c95933f265fc0a54c19",
+                "reference": "9ee023a673255db8059c1c95933f265fc0a54c19",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
+                "illuminate/filesystem": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
+                "illuminate/support": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
+                "illuminate/view": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0"
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Bjnstnkvc\\MailComponents\\MailComponentsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bjnstnkvc\\MailComponents\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bojan Stankovic",
+                    "email": "dev.bojan.stankovic@gmail.com"
+                }
+            ],
+            "description": "Simple Laravel Mail components",
+            "support": {
+                "issues": "https://github.com/BJNSTNKVC/laravel-mail-components/issues",
+                "source": "https://github.com/BJNSTNKVC/laravel-mail-components/tree/1.1.5"
+            },
+            "time": "2024-11-25T19:53:58+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.12.1",
