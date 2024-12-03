@@ -15,8 +15,9 @@ class AdminUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->user()->isAdmin()) {
-            abort(403);
+        if (auth()->user() === null || !auth()->user()->isAdmin()) {
+            return redirect("/login", 301);
+            // abort(403);
         }
         return $next($request);
     }
