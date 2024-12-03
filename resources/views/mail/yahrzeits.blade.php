@@ -1,5 +1,5 @@
 <x-mail::layout>
-    <x-mail::header />
+    <x-mail::header logo="{{ url(Vite::asset('resources/images/candle.png')) }}" />
     <td align="center" valign="top">
         <table class="content table-content" width="100%" cellpadding="0" cellspacing="0" border="0">
             <x-mail::new-line />
