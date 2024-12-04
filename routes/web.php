@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ShulMembersController;
 use App\Http\Controllers\UsersController;
 use App\Http\Middleware\AdminUser;
@@ -13,7 +14,7 @@ Route::post('/logout', [LoginController::class, 'destroy'])->middleware('auth');
 
 Route::inertia('/', 'Home');
 Route::middleware('auth')->group(function () {
-    Route::inertia('/settings', 'Settings');
+    Route::get('/settings', [SettingsController::class, 'index']);
 
     Route::get('/users', [UsersController::class, 'index']);
     Route::get('/users/create', [UsersController::class, 'create'])->can('create', 'App\Models\User');
