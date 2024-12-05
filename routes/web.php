@@ -17,7 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings', [SettingsController::class, 'index']);
 
     Route::get('/users', [UsersController::class, 'index']);
-    Route::get('/users/create', [UsersController::class, 'create'])->can('create', 'App\Models\User');
+    Route::get('/users/create', [UsersController::class, 'create']);
     Route::post('/users', [UsersController::class, 'store']);
 
     Route::get('/members', [ShulMembersController::class, 'index']);
