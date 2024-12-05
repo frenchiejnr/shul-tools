@@ -19,8 +19,10 @@ class ShulMembersController extends Controller
         $sort = Request::input('sort');
         $direction = Request::input('direction', 'asc');
 
+        $tenant_id = Auth::user()->tenant_id;
         $members = ShulMembers::query()
             ->select('shul_members.*')
+            ->where('tenant_id', $tenant_id)
             ->join('ancestors', 'shul_members.ancestors_id', '=', 'ancestors.id')
             ->addSelect('ancestors.*')
             ->addSelect('shul_members.id as member_id')
