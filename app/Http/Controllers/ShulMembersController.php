@@ -122,29 +122,39 @@ class ShulMembersController extends Controller
     }
     public function edit(int $id)
     {
-        return Inertia::render('Members/Edit', [
-            'member' => ShulMembers::where('shul_members.id', $id)
-                ->join('ancestors', 'shul_members.ancestors_id', '=', 'ancestors.id')
-                ->select(
-                    'shul_members.id',
-                    'forenames',
-                    'surname',
-                    'hebrew_name',
-                    'gender',
-                    'ancestors.fathers_hebrew_name',
-                    'ancestors.paternal_grandfather_hebrew_name',
-                    'ancestors.paternal_grandmother_hebrew_name',
-                    'ancestors.mothers_hebrew_name',
-                    'ancestors.maternal_grandfather_hebrew_name',
-                    'ancestors.maternal_grandmother_hebrew_name',
-                    'paternal_status',
-                    'ancestors.maternal_status',
-                    'ancestors.father_yahrtzeit_date',
-                    'ancestors.mother_yahrtzeit_date',
-                    'contact_email'
-                )
-                ->first()
+        $member = ShulMembers::where('shul_members.id', $id)
+            ->join('ancestors', 'shul_members.ancestors_id', '=', 'ancestors.id')
+            ->select(
+                'shul_members.id',
+                'forenames',
+                'surname',
+                'hebrew_name',
+                'gender',
+                'ancestors.fathers_hebrew_name',
+                'ancestors.paternal_grandfather_hebrew_name',
+                'ancestors.paternal_grandmother_hebrew_name',
+                'ancestors.mothers_hebrew_name',
+                'ancestors.maternal_grandfather_hebrew_name',
+                'ancestors.maternal_grandmother_hebrew_name',
+                'paternal_status',
+                'ancestors.maternal_status',
+                'ancestors.father_yahrtzeit_date',
+                'ancestors.mother_yahrtzeit_date',
+                'contact_email',
+                'tenant_id',
+            )
+            ->first();
 
+        if (!$member) {
+            abort(404);
+        }
+
+        if (Auth::user()->tenant_id != $member->tenant_id) {
+            abort(403);
+        }
+
+        return Inertia::render('Members/Edit', [
+            'member' => $member
         ]);
     }
 
