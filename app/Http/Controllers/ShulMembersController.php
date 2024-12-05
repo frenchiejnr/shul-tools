@@ -74,9 +74,7 @@ class ShulMembersController extends Controller
     }
     public function store()
     {
-
-
-
+        $tenant_id = Auth::user()->tenant_id;
         $data = Request::validate([
             'forenames' => ['required', 'max:255'],
             'surname' => ['required', 'max:255'],
@@ -117,6 +115,7 @@ class ShulMembersController extends Controller
             'paternal_status' => $data['paternal_status'],
         ]);
         $member->ancestors_id = $ancestor->id;
+        $member->tenant_id = $tenant_id;
         $member->save();
 
         return redirect('/members');
