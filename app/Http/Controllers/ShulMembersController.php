@@ -186,13 +186,16 @@ class ShulMembersController extends Controller
 
     public function yahrzeit()
     {
+        $tenant_id = Auth::user()->tenant_id;
         return Inertia::render(
             'Members/Yahrzeits',
             [
-                'member' => ShulMembers::where(function ($query) {
-                    $query->whereNotNull('ancestors.mother_yahrtzeit_date')
-                        ->orWhereNotNull('ancestors.father_yahrtzeit_date');
-                })
+                'member' => ShulMembers::where('tenant_id', $tenant_id)
+                    ->where(function ($query) {
+                        $query
+                            ->whereNotNull('ancestors.mother_yahrtzeit_date')
+                            ->orWhereNotNull('ancestors.father_yahrtzeit_date');
+                    })
                     ->join('ancestors', 'shul_members.ancestors_id', '=', 'ancestors.id')
                     ->select(
                         'forenames',
