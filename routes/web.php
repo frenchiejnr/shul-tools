@@ -21,13 +21,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/users', [UsersController::class, 'store']);
 
     Route::get('/members', [ShulMembersController::class, 'index']);
-    Route::post('/members', [ShulMembersController::class, 'store']);
-    Route::post('/members/{member:id}/edit', [ShulMembersController::class, 'editUser']);
 });
 
 Route::middleware(AdminUser::class)->group(function () {
     Route::get('/members/create', [ShulMembersController::class, 'create']);
+    Route::post('/members', [ShulMembersController::class, 'store']);
     Route::get('/members/{member:id}/edit', [ShulMembersController::class, 'edit']);
+    Route::post('/members/{member:id}/edit', [ShulMembersController::class, 'editUser']);
     Route::get('/members/yahrzeits', [ShulMembersController::class, 'yahrzeit']);
     Route::post('/members/sendYahrzeits', [ShulMembersController::class, 'sendYahrzeits']);
 });
