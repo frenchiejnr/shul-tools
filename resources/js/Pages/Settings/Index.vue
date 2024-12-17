@@ -2,6 +2,7 @@
 import { Head } from "@inertiajs/vue3";
 let props = defineProps({
     settings: Object,
+    settingsKeys: Object,
 });
 </script>
 
@@ -13,4 +14,9 @@ let props = defineProps({
             {{ setting.key }}: {{ setting.value }}
         </li>
     </ul>
+    <select name="key" id="key">
+        <option v-for="key in settingsKeys" :key="key.id" :value="key.key">
+            {{ key.label }}
+        </option>
+    </select>
 </template>
