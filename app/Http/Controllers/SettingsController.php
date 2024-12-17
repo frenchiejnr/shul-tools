@@ -14,7 +14,7 @@ class SettingsController extends Controller
     {
         $tenantId = $request->user()->tenant_id;
         $settings = Setting::where('tenant_id', $tenantId)->get();
-        $settingsKeys = SettingsKeys::all();
+        $settingsKeys = SettingsKeys::whereNotIn('key', $settings->pluck('key'))->get();
         return Inertia::render('Settings/Index', [
             'settings' => $settings,
             'settingsKeys' => $settingsKeys
