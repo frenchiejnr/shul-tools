@@ -3,6 +3,7 @@ import { Head, useForm } from "@inertiajs/vue3";
 let props = defineProps({
     settings: Object,
     settingsKeys: Object,
+    can: Object,
 });
 
 let form = useForm({
@@ -29,7 +30,7 @@ let submit = () => {
         </li>
     </ul>
     <!-- TODO Only show if admin -->
-    <form @submit.prevent="submit">
+    <form @submit.prevent="submit" v-if="can.addSetting">
         <div class="flex items-center">
             <select v-model="form.key" name="key" id="key" class="mr-2">
                 <option

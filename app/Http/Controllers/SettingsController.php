@@ -19,7 +19,10 @@ class SettingsController extends Controller
         $settingsKeys = SettingsKeys::whereNotIn('key', $settings->pluck('key'))->get();
         return Inertia::render('Settings/Index', [
             'settings' => $settings,
-            'settingsKeys' => $settingsKeys
+            'settingsKeys' => $settingsKeys,
+            'can' => [
+                'addSetting' => Auth::user()->isAdmin()
+            ]
         ]);
     }
 
