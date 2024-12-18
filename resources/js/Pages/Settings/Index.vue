@@ -47,7 +47,7 @@ let submit = () => {
             </tr>
         </template>
     </Table>
-    <Table>
+    <Table v-if="props.settingsKeys.length">
         <template #rows>
             <TableRowData>
                 <form @submit.prevent="submit" class="w-full">
