@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import TableRowData from "../../../Shared/TableRowData.vue";
-import { useForm } from "@inertiajs/vue3";
+import { router, useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 
 defineProps<{
@@ -19,13 +19,19 @@ function cancelEdit(setting) {
     isEditing.value[setting.id] = false;
 }
 
-let submit = (setting) => {
+let submitEdit = (setting) => {
     const form = useForm({
         key: setting.key,
         value: setting.value,
     });
 
     form.post(`/settings/${setting.id}/edit`);
+};
+
+let deleteSetting = (setting) => {
+    if (confirm("Are you sure you want to delete this setting?")) {
+        router.delete(`/settings/${setting.id}/delete`);
+    }
 };
 </script>
 
@@ -52,7 +58,7 @@ let submit = (setting) => {
             <button
                 v-if="isEditing[setting.id]"
                 class="text-indigo-600 hover:text-indigo-900"
-                @click="submit(setting), (isEditing[setting.id] = false)">
+                @click="submitEdit(setting), (isEditing[setting.id] = false)">
                 Save
             </button>
             <button
@@ -60,6 +66,12 @@ let submit = (setting) => {
                 class="ml-2 text-red-600 hover:text-red-900"
                 @click="cancelEdit(setting)">
                 Cancel
+            </button>
+            <button
+                v-if="!isEditing[setting.id]"
+                class="ml-2 text-red-600 hover:text-red-900"
+                @click="deleteSetting(setting)">
+                Delete
             </button>
         </TableRowData>
     </tr>

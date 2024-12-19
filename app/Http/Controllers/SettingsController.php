@@ -48,4 +48,10 @@ class SettingsController extends Controller
         ]);
         $setting->update($data);
     }
+
+    public function delete(int $settingId)
+    {
+        $setting = Setting::findOrFail($settingId);
+        $setting->delete();
+    }
 }
