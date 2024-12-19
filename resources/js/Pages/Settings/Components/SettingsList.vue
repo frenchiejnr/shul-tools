@@ -9,6 +9,18 @@ let props = defineProps({
     settings: Object,
 });
 
+const originalValues = ref({});
+
+function startEdit(setting) {
+    originalValues.value[setting.id] = setting.value;
+    isEditing.value[setting.id] = true;
+}
+
+function cancelEdit(setting) {
+    setting.value = originalValues.value[setting.id];
+    isEditing.value[setting.id] = false;
+}
+
 let submit = (setting) => {
     const form = useForm({
         key: setting.key,
@@ -30,33 +42,35 @@ let submit = (setting) => {
                 :key="setting.id"
                 class="flex items-center justify-between">
                 <TableRowData class="basis-3/12">
-                    <input class="text-sm font-medium text-gray-900" v-model="setting.key">
-                </input>
+                    <input
+                        class="text-sm font-medium text-gray-900"
+                        v-model="setting.key" />
                 </TableRowData>
                 <TableRowData class="grow">
                     <input
                         class="w-full rounded-md border-2 border-gray-300 px-2 py-1 text-sm font-medium text-gray-900"
                         v-model="setting.value"
-                        :disabled="!isEditing[setting.id]"
-                        @input="isEditing[setting.id] = true" />
+                        :disabled="!isEditing[setting.id]" />
                 </TableRowData>
                 <TableRowData class="" :right-aligned="true">
                     <button
                         v-if="!isEditing[setting.id]"
                         class="text-indigo-600 hover:text-indigo-900"
-                        @click="isEditing[setting.id] = !isEditing[setting.id]">
+                        @click="startEdit(setting)">
                         Edit
                     </button>
                     <button
                         v-if="isEditing[setting.id]"
                         class="text-indigo-600 hover:text-indigo-900"
-                        @click="submit(setting), isEditing[setting.id] = false">
+                        @click="
+                            submit(setting), (isEditing[setting.id] = false)
+                        ">
                         Save
                     </button>
                     <button
                         v-if="isEditing[setting.id]"
                         class="ml-2 text-red-600 hover:text-red-900"
-                        @click="isEditing[setting.id] = false">
+                        @click="cancelEdit(setting)">
                         Cancel
                     </button>
                 </TableRowData>
