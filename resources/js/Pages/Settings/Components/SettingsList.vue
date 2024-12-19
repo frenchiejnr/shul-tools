@@ -1,34 +1,10 @@
 <script setup>
-import { useForm } from "@inertiajs/vue3";
 import Table from "../../../Shared/Table.vue";
-import TableRowData from "../../../Shared/TableRowData.vue";
-import { ref } from "vue";
-const isEditing = ref({});
+import SettingsRow from "./SettingsRow.vue";
 
 let props = defineProps({
     settings: Object,
 });
-
-const originalValues = ref({});
-
-function startEdit(setting) {
-    originalValues.value[setting.id] = setting.value;
-    isEditing.value[setting.id] = true;
-}
-
-function cancelEdit(setting) {
-    setting.value = originalValues.value[setting.id];
-    isEditing.value[setting.id] = false;
-}
-
-let submit = (setting) => {
-    const form = useForm({
-        key: setting.key,
-        value: setting.value,
-    });
-
-    form.post(`/settings/${setting.id}/edit`);
-};
 </script>
 
 <template>
@@ -37,44 +13,7 @@ let submit = (setting) => {
             <h1 class="text-3xl">Settings</h1>
         </template>
         <template #rows>
-            <tr
-                v-for="setting in settings"
-                :key="setting.id"
-                class="flex items-center justify-between">
-                <TableRowData class="basis-3/12">
-                    <input
-                        class="text-sm font-medium text-gray-900"
-                        v-model="setting.key" />
-                </TableRowData>
-                <TableRowData class="grow">
-                    <input
-                        class="w-full rounded-md border-2 border-gray-300 px-2 py-1 text-sm font-medium text-gray-900"
-                        v-model="setting.value"
-                        :disabled="!isEditing[setting.id]" />
-                </TableRowData>
-                <TableRowData class="" :right-aligned="true">
-                    <button
-                        v-if="!isEditing[setting.id]"
-                        class="text-indigo-600 hover:text-indigo-900"
-                        @click="startEdit(setting)">
-                        Edit
-                    </button>
-                    <button
-                        v-if="isEditing[setting.id]"
-                        class="text-indigo-600 hover:text-indigo-900"
-                        @click="
-                            submit(setting), (isEditing[setting.id] = false)
-                        ">
-                        Save
-                    </button>
-                    <button
-                        v-if="isEditing[setting.id]"
-                        class="ml-2 text-red-600 hover:text-red-900"
-                        @click="cancelEdit(setting)">
-                        Cancel
-                    </button>
-                </TableRowData>
-            </tr>
+            <SettingsRow v-for="setting in settings" :setting="setting" />
         </template>
     </Table>
 </template>
