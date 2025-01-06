@@ -30,4 +30,7 @@ Route::middleware(AdminUser::class)->group(function () {
     Route::post('/members/{member:id}/edit', [ShulMembersController::class, 'editUser']);
     Route::get('/members/yahrzeits', [ShulMembersController::class, 'yahrzeit']);
     Route::post('/members/sendYahrzeits', [ShulMembersController::class, 'sendYahrzeits']);
+    Route::post('/settings', [SettingsController::class, 'store']);
+    Route::post('/settings/{setting:id}/edit', [SettingsController::class, 'edit']);
+    Route::delete('/settings/{setting:id}/delete', [SettingsController::class, 'delete']);
 });

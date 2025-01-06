@@ -1,16 +1,32 @@
 <script setup>
-import { Head } from "@inertiajs/vue3";
+import { Head, useForm } from "@inertiajs/vue3";
+import SettingsList from "./Components/SettingsList.vue";
+import SettingsAddSetting from "./Components/SettingsAdd.vue";
 let props = defineProps({
     settings: Object,
+    settingsKeys: Object,
 });
+
+let form = useForm({
+    key: "",
+    value: "",
+    tenant: "",
+});
+
+let submit = () => {
+    form.post("/settings", {
+        onSuccess: () => {
+            form.reset();
+        },
+    });
+};
 </script>
 
 <template>
     <Head title="Settings"></Head>
-    <h1 class="text-3xl">Settings</h1>
-    <ul>
-        <li v-for="setting in settings" :key="setting.id">
-            {{ setting.key }}: {{ setting.value }}
-        </li>
-    </ul>
+    <SettingsList :settings="settings" />
+    <SettingsAddSetting
+        :submit="submit"
+        :form="form"
+        :settingsKeys="settingsKeys" />
 </template>
