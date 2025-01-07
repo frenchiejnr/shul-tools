@@ -5,7 +5,9 @@
             content="Information about my app"
             head-key="description" />
     </Head>
-    <section class="bg-gray-200 p-2 sm:p-6">
+    <section
+        class="bg-gray-200 p-2 sm:p-6"
+        :class="{ 'bg-red-200': $page.props.auth?.superAdmin }">
         <header
             class="flex flex-col justify-between sm:flex-row sm:items-center">
             <div class="flex flex-col items-center sm:flex-row">
@@ -29,4 +31,5 @@ import { Head, usePage } from "@inertiajs/vue3";
 
 const page = usePage();
 let username = computed(() => page.props.auth?.user?.username || null);
+let superAdmin = computed(() => page.props.auth?.superAdmin || false);
 </script>
