@@ -2,14 +2,14 @@
 
 namespace App\Mail;
 
-use App\Models\ShulMembers;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Setting;
+use Illuminate\Support\Facades\Auth;
 
 class Yahrzeits extends Mailable
 {
@@ -25,8 +25,15 @@ class Yahrzeits extends Mailable
      */
     public function envelope(): Envelope
     {
+        $email =     Setting::where('key', 'yahrzeit_email_address')
+            ->where('tenant_id', Auth::user()->tenant_id)
+            ->value('value') ?? 'shul-tools@gmail.com';
+
         return new Envelope(
-            from: new Address('frenchiejnr@gmail.com', 'Binyomin Freedman'),
+            from: new Address(
+                $email,
+                'Binyomin Freedman'
+            ),
             subject: 'This weeks Yahrzeits',
         );
     }
