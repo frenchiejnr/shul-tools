@@ -40,7 +40,8 @@ class HandleInertiaRequests extends Middleware
             'auth' => Auth::user() ? [
                 'user' => [
                     'username' => Auth::user()->name
-                ]
+                ],
+                'superAdmin' => Auth::user()->isSuperAdmin() || false
             ] : null,
         ]);
     }

@@ -56,6 +56,12 @@ class User extends Authenticatable
         return $this->admin;
     }
 
+    public function isSuperAdmin(): bool
+    {
+        // TODO: change this to a environment variable
+        return $this->admin && $this->email === 'frenchiejnr@gmail.com';
+    }
+
     public function tenant()
     {
         return $this->belongsTo(Tenant::class);

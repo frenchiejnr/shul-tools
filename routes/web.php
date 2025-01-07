@@ -6,6 +6,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ShulMembersController;
 use App\Http\Controllers\UsersController;
 use App\Http\Middleware\AdminUser;
+use App\Http\Middleware\SuperAdminUser;
 
 Route::get('/login', [LoginController::class, 'create'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
@@ -13,6 +14,13 @@ Route::post('/logout', [LoginController::class, 'destroy'])->middleware('auth');
 
 
 Route::inertia('/', 'Home');
+
+Route::middleware(SuperAdminUser::class)->group(function () {
+    Route::get('/settings/super', function () {
+        return 'hello world';
+    });
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/settings', [SettingsController::class, 'index']);
 
