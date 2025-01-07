@@ -12,8 +12,10 @@ class UsersController extends Controller
 {
     public function index()
     {
+        $tenant_id = Auth::user()->tenant_id;
         return Inertia::render('Users/Index', [
             'users' => User::query()
+                ->where('tenant_id', $tenant_id)
                 ->when(Request::input('search'), function ($query, $search) {
                     $query
                         ->where('name', 'like', "%{$search}%");
@@ -24,32 +26,33 @@ class UsersController extends Controller
                     'id' => $user->id,
                     'name' => $user->name,
                     'can' => [
-                        'edit' => Auth::user()->can('edit', $user)
+                        'edit' => Auth::user()->isAdmin() ?? Auth::user()->can('edit', $user)
                     ]
                 ]),
             'filters' => Request::only(['search']),
             'can' => [
-                'createUser' => Auth::user()->can('create', User::class)
+                'createUser' => Auth::user()->isAdmin() ?? Auth::user()->can('create', User::class)
             ]
         ]);
     }
 
     public function create()
     {
-
         return Inertia::render('Users/Create');
     }
 
     public function store()
     {
+        $tenant_id = Auth::user()->tenant_id;
         $attributes = Request::validate([
             'name' => ['required', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'min:8'],
-
         ]);
+        $user = new User($attributes);
+        $user->tenant_id = $tenant_id;
+        $user->save();
 
-        User::create($attributes);
 
         return redirect('/users');
     }

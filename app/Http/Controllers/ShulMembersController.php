@@ -19,8 +19,10 @@ class ShulMembersController extends Controller
         $sort = Request::input('sort');
         $direction = Request::input('direction', 'asc');
 
+        $tenant_id = Auth::user()->tenant_id;
         $members = ShulMembers::query()
             ->select('shul_members.*')
+            ->where('tenant_id', $tenant_id)
             ->join('ancestors', 'shul_members.ancestors_id', '=', 'ancestors.id')
             ->addSelect('ancestors.*')
             ->addSelect('shul_members.id as member_id')
@@ -72,9 +74,7 @@ class ShulMembersController extends Controller
     }
     public function store()
     {
-
-
-
+        $tenant_id = Auth::user()->tenant_id;
         $data = Request::validate([
             'forenames' => ['required', 'max:255'],
             'surname' => ['required', 'max:255'],
@@ -115,35 +115,46 @@ class ShulMembersController extends Controller
             'paternal_status' => $data['paternal_status'],
         ]);
         $member->ancestors_id = $ancestor->id;
+        $member->tenant_id = $tenant_id;
         $member->save();
 
         return redirect('/members');
     }
     public function edit(int $id)
     {
-        return Inertia::render('Members/Edit', [
-            'member' => ShulMembers::where('shul_members.id', $id)
-                ->join('ancestors', 'shul_members.ancestors_id', '=', 'ancestors.id')
-                ->select(
-                    'shul_members.id',
-                    'forenames',
-                    'surname',
-                    'hebrew_name',
-                    'gender',
-                    'ancestors.fathers_hebrew_name',
-                    'ancestors.paternal_grandfather_hebrew_name',
-                    'ancestors.paternal_grandmother_hebrew_name',
-                    'ancestors.mothers_hebrew_name',
-                    'ancestors.maternal_grandfather_hebrew_name',
-                    'ancestors.maternal_grandmother_hebrew_name',
-                    'paternal_status',
-                    'ancestors.maternal_status',
-                    'ancestors.father_yahrtzeit_date',
-                    'ancestors.mother_yahrtzeit_date',
-                    'contact_email'
-                )
-                ->first()
+        $member = ShulMembers::where('shul_members.id', $id)
+            ->join('ancestors', 'shul_members.ancestors_id', '=', 'ancestors.id')
+            ->select(
+                'shul_members.id',
+                'forenames',
+                'surname',
+                'hebrew_name',
+                'gender',
+                'ancestors.fathers_hebrew_name',
+                'ancestors.paternal_grandfather_hebrew_name',
+                'ancestors.paternal_grandmother_hebrew_name',
+                'ancestors.mothers_hebrew_name',
+                'ancestors.maternal_grandfather_hebrew_name',
+                'ancestors.maternal_grandmother_hebrew_name',
+                'paternal_status',
+                'ancestors.maternal_status',
+                'ancestors.father_yahrtzeit_date',
+                'ancestors.mother_yahrtzeit_date',
+                'contact_email',
+                'tenant_id',
+            )
+            ->first();
 
+        if (!$member) {
+            abort(404);
+        }
+
+        if (Auth::user()->tenant_id != $member->tenant_id) {
+            abort(403);
+        }
+
+        return Inertia::render('Members/Edit', [
+            'member' => $member
         ]);
     }
 
@@ -185,13 +196,16 @@ class ShulMembersController extends Controller
 
     public function yahrzeit()
     {
+        $tenant_id = Auth::user()->tenant_id;
         return Inertia::render(
             'Members/Yahrzeits',
             [
-                'member' => ShulMembers::where(function ($query) {
-                    $query->whereNotNull('ancestors.mother_yahrtzeit_date')
-                        ->orWhereNotNull('ancestors.father_yahrtzeit_date');
-                })
+                'member' => ShulMembers::where('tenant_id', $tenant_id)
+                    ->where(function ($query) {
+                        $query
+                            ->whereNotNull('ancestors.mother_yahrtzeit_date')
+                            ->orWhereNotNull('ancestors.father_yahrtzeit_date');
+                    })
                     ->join('ancestors', 'shul_members.ancestors_id', '=', 'ancestors.id')
                     ->select(
                         'forenames',

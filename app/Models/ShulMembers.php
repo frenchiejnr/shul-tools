@@ -22,4 +22,9 @@ class ShulMembers extends Model
     {
         return $this->hasOne(Ancestors::class, 'id', 'ancestors_id');
     }
+
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 }

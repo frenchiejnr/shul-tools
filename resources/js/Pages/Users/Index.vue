@@ -55,11 +55,9 @@ watch(
                                     <td
                                         class="whitespace-nowrap px-1 py-4 sm:px-6">
                                         <div class="flex items-center">
-                                            <div>
-                                                <div
-                                                    class="text-sm font-medium text-gray-900">
-                                                    {{ user.name }}
-                                                </div>
+                                            <div
+                                                class="text-sm font-medium text-gray-900">
+                                                {{ user.name }}
                                             </div>
                                         </div>
                                     </td>
