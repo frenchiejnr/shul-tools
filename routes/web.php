@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ShulMembersController;
+use App\Http\Controllers\SuperSettingsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Middleware\AdminUser;
 use App\Http\Middleware\SuperAdminUser;
@@ -16,9 +17,7 @@ Route::post('/logout', [LoginController::class, 'destroy'])->middleware('auth');
 Route::inertia('/', 'Home');
 
 Route::middleware(SuperAdminUser::class)->group(function () {
-    Route::get('/settings/super', function () {
-        return 'hello world';
-    });
+    Route::get('/settings/super', [SuperSettingsController::class, 'index']);
 });
 
 Route::middleware('auth')->group(function () {
