@@ -7,6 +7,16 @@ use App\Models\SettingsKeys;
 
 class SettingsKeysController extends Controller
 {
+    //store function
+    public function store(Request $request)
+    {
+        $data = Request::validate([
+            'key' => ['required'],
+            'label' => ['required'],
+        ]);
+        SettingsKeys::create($data);
+    }
+
     public function edit(int $settingId)
     {
         $settingsKey = SettingsKeys::findOrFail($settingId);
@@ -22,4 +32,4 @@ class SettingsKeysController extends Controller
         $settingsKey = SettingsKeys::findOrFail($settingId);
         $settingsKey->delete();
     }
-    }
+}

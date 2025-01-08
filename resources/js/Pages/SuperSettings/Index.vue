@@ -2,6 +2,7 @@
 import { Head } from "@inertiajs/vue3";
 import Table from "../../Shared/Table.vue";
 import SettingsKeyRow from "./Components/SettingsKeyRow.vue";
+import SettingsKeyAdd from "./Components/SettingsKeyAdd.vue";
 let props = defineProps({
     settingsKeys: Object,
 });
@@ -17,6 +18,7 @@ let props = defineProps({
             <SettingsKeyRow
                 v-for="setting in props.settingsKeys"
                 :setting="setting" />
+            <SettingsKeyAdd />
         </template>
     </Table>
 </template>

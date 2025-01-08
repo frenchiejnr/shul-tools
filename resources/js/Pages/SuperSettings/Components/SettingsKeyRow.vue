@@ -30,7 +30,6 @@ let submitEdit = (setting) => {
     });
 
     form.post(`/settingsKeys/${setting.id}/edit`);
-    // form.post(`/settings/${setting.id}/edit`);
 };
 
 let deleteSetting = (setting) => {
