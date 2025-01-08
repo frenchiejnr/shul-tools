@@ -37,7 +37,7 @@ let deleteSetting = (setting) => {
     if (confirm("Are you sure you want to delete this setting?")) {
         console.log(setting.id);
 
-        // router.delete(`/settings/${setting.id}/delete`);
+        router.delete(`/settingsKeys/${setting.id}/delete`);
     }
 };
 </script>

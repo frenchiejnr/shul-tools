@@ -16,4 +16,10 @@ class SettingsKeysController extends Controller
         ]);
         $settingsKey->update($data);
     }
+
+    public function delete(int $settingId)
+    {
+        $settingsKey = SettingsKeys::findOrFail($settingId);
+        $settingsKey->delete();
+    }
     }
