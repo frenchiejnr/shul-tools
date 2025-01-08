@@ -8,6 +8,7 @@ use App\Http\Controllers\SuperSettingsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Middleware\AdminUser;
 use App\Http\Middleware\SuperAdminUser;
+use App\Http\Controllers\SettingsKeysController;
 
 Route::get('/login', [LoginController::class, 'create'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
@@ -18,6 +19,7 @@ Route::inertia('/', 'Home');
 
 Route::middleware(SuperAdminUser::class)->group(function () {
     Route::get('/settings/super', [SuperSettingsController::class, 'index']);
+    Route::post('/settingsKeys/{setting:id}/edit', [SettingsKeysController::class, 'edit']);
 });
 
 Route::middleware('auth')->group(function () {

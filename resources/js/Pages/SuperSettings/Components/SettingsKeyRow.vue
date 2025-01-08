@@ -29,6 +29,7 @@ let submitEdit = (setting) => {
         label: setting.label,
     });
 
+    form.post(`/settingsKeys/${setting.id}/edit`);
     // form.post(`/settings/${setting.id}/edit`);
 };
 
