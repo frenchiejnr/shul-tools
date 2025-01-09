@@ -9,6 +9,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Middleware\AdminUser;
 use App\Http\Middleware\SuperAdminUser;
 use App\Http\Controllers\SettingsKeysController;
+use App\Http\Controllers\TenantsController;
 
 Route::get('/login', [LoginController::class, 'create'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
@@ -22,6 +23,7 @@ Route::middleware(SuperAdminUser::class)->group(function () {
     Route::post('/settingsKeys', [SettingsKeysController::class, 'store']);
     Route::post('/settingsKeys/{setting:id}/edit', [SettingsKeysController::class, 'edit']);
     Route::delete('/settingsKeys/{setting:id}/delete', [SettingsKeysController::class, 'delete']);
+    Route::get('/settings/tenants', [TenantsController::class, 'index']);
 });
 
 Route::middleware('auth')->group(function () {
