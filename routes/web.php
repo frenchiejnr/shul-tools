@@ -23,7 +23,6 @@ Route::middleware(SuperAdminUser::class)->group(function () {
     Route::post('/settingsKeys', [SettingsKeysController::class, 'store']);
     Route::post('/settingsKeys/{setting:id}/edit', [SettingsKeysController::class, 'edit']);
     Route::delete('/settingsKeys/{setting:id}/delete', [SettingsKeysController::class, 'delete']);
-    Route::get('/settings/tenants', [TenantsController::class, 'index']);
 });
 
 Route::middleware('auth')->group(function () {

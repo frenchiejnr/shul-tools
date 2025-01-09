@@ -5,6 +5,7 @@ import SettingsKeyRow from "./Components/SettingsKeyRow.vue";
 import SettingsKeyAdd from "./Components/SettingsKeyAdd.vue";
 let props = defineProps({
     settingsKeys: Object,
+    tenants: Object,
 });
 </script>
 
@@ -19,6 +20,10 @@ let props = defineProps({
                 v-for="setting in props.settingsKeys"
                 :setting="setting" />
             <SettingsKeyAdd />
+            <div v-for="tenant in props.tenants">
+                <p class="text-3xl">Tenant: {{ tenant.name }}</p>
+                <p class="text-3xl">Domain: {{ tenant.domain }}</p>
+            </div>
         </template>
     </Table>
 </template>
