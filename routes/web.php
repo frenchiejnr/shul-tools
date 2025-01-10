@@ -9,7 +9,6 @@ use App\Http\Controllers\UsersController;
 use App\Http\Middleware\AdminUser;
 use App\Http\Middleware\SuperAdminUser;
 use App\Http\Controllers\SettingsKeysController;
-use App\Http\Controllers\TenantsController;
 
 Route::get('/login', [LoginController::class, 'create'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
