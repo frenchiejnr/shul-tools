@@ -21,6 +21,7 @@ Route::inertia('/', 'Home');
 Route::middleware(SuperAdminUser::class)->group(function () {
     Route::get('/settings/super', [SuperSettingsController::class, 'index']);
     Route::post('/settingsKeys', [SettingsKeysController::class, 'store']);
+    Route::post('/tenants', [TenantsController::class, 'store']);
     Route::post('/settingsKeys/{setting:id}/edit', [SettingsKeysController::class, 'edit']);
     Route::post('/tenants/{tenant:id}/edit', [TenantsController::class, 'edit']);
     Route::delete('/settingsKeys/{setting:id}/delete', [SettingsKeysController::class, 'delete']);
