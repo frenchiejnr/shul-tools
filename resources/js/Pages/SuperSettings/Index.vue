@@ -4,6 +4,7 @@ import SettingsKeyAdd from "./Components/SettingsKeyAdd.vue";
 import List from "../../Shared/List.vue";
 import TableRow from "../../Shared/TableRow.vue";
 import Table from "../../Shared/Table.vue";
+import TableAdd from "../../Shared/TableAdd.vue";
 let props = defineProps({
     settingsKeys: Object,
     tenants: Object,
@@ -25,7 +26,7 @@ let props = defineProps({
             url="settingsKeys"
             :keys="['key', 'label']" />
     </List>
-    <SettingsKeyAdd />
+    <TableAdd :fields="['key', 'label']" endpoint="settingsKeys" />
     <List heading="Tenants">
         <TableRow :data="tenants" url="tenants" :keys="['name', 'domain']" />
     </List>
