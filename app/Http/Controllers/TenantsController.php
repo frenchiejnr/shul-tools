@@ -28,4 +28,10 @@ class TenantsController extends Controller
         ]);
         $tenant->update($data);
     }
+
+    public function delete(int $tenantId)
+    {
+        $tenant = Tenant::findOrFail($tenantId);
+        $tenant->delete();
+    }
 }

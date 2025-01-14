@@ -25,6 +25,7 @@ Route::middleware(SuperAdminUser::class)->group(function () {
     Route::post('/settingsKeys/{setting:id}/edit', [SettingsKeysController::class, 'edit']);
     Route::post('/tenants/{tenant:id}/edit', [TenantsController::class, 'edit']);
     Route::delete('/settingsKeys/{setting:id}/delete', [SettingsKeysController::class, 'delete']);
+    Route::delete('/tenants/{tenant:id}/delete', [TenantsController::class, 'delete']);
 });
 
 Route::middleware('auth')->group(function () {
