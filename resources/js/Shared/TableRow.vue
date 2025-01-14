@@ -51,20 +51,20 @@ let deleteItem = (item) => {
                 <TableRowData
                     v-for="key in props.keys"
                     :key="`${item.id}-${key}`"
-                    class="self-center sm:self-start">
+                    class="basis-6/12 sm:self-start">
                     <div>
                         <p class="pr-1 text-xs font-medium text-gray-400">
                             {{ key }}:
                         </p>
+                        <label
+                            v-if="!isEditing[item.id]"
+                            class="mt-2 text-wrap bg-white text-sm font-medium text-gray-900 sm:text-left">
+                            {{ item[key] }}
+                        </label>
                         <input
-                            class="mt-2 text-sm font-medium text-gray-900"
-                            :class="
-                                !isEditing[item.id]
-                                    ? 'bg-white sm:text-left'
-                                    : 'w-full rounded-md border-2 border-gray-300 px-1'
-                            "
-                            v-model="item[key]"
-                            :disabled="!isEditing[item.id]" />
+                            v-else
+                            class="mt-2 w-full rounded-md border-2 border-gray-300 px-1 text-sm font-medium text-gray-900"
+                            v-model="item[key]" />
                     </div>
                 </TableRowData>
             </div>
