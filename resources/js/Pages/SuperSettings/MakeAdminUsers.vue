@@ -1,26 +1,45 @@
-<script setup lang="ts">
+<script setup>
 import { useForm } from "@inertiajs/vue3";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import TableRowData from "../../Shared/TableRowData.vue";
 import Table from "../../Shared/Table.vue";
-defineProps<{
-    tenants: Record<string, any> | undefined;
-    users: Record<string, any> | undefined;
-}>();
+
+let props = defineProps({
+    tenants: Object,
+    users: Object,
+});
+
 let tenant = ref("");
 const form = useForm({
     user: "",
     admin: "",
 });
+
+watch(
+    () => form.user,
+    (newValue) => {
+        if (newValue) {
+            form.admin = !props.users.find((user) => user.id === form.user)
+                .admin;
+        }
+    },
+);
+
+const submitForm = () => {
+    form.post(`/users/${form.user}/makeAdmin`, {
+        onSuccess: () => {
+            tenant.value = "";
+            form.reset();
+        },
+    });
+};
 </script>
 
 <template>
     <Table>
         <template #rows>
             <TableRowData>
-                <form
-                    @submit.prevent="form.post(`/users/${form.user}/makeAdmin`)"
-                    class="w-full">
+                <form @submit.prevent="submitForm" class="w-full">
                     <div class="flex justify-between">
                         <div
                             class="flex basis-10/12 flex-col justify-between sm:flex-row">
@@ -52,12 +71,7 @@ const form = useForm({
                                 'cursor-not-allowed opacity-50':
                                     !tenant || !form.user,
                             }"
-                            :disabled="!tenant || !form.user"
-                            @click="
-                                form.admin = !users.find(
-                                    (user) => user.id === form.user,
-                                ).admin
-                            ">
+                            :disabled="!tenant || !form.user">
                             {{
                                 users.find((user) => user.id === form?.user)
                                     ?.admin
