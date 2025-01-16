@@ -56,4 +56,13 @@ class UsersController extends Controller
 
         return redirect('/users');
     }
+
+    public function makeAdmin(User $user)
+    {
+        $user = User::findOrFail($user->id);
+        $attributes = Request::validate([
+            'admin' => ['required'],
+        ]);
+        $user->update($attributes);
+    }
 }
