@@ -6,6 +6,7 @@ import { computed } from "vue";
 const page = usePage();
 
 const isLoggedIn = computed(() => !!page.props.auth?.user?.username);
+const isSuperAdmin = computed(() => page.props.auth?.superAdmin);
 </script>
 
 <template>
@@ -37,6 +38,13 @@ const isLoggedIn = computed(() => !!page.props.auth?.user?.username);
                     href="/settings"
                     :active="$page.component === 'Settings'">
                     Settings
+                </NavLink>
+            </li>
+            <li v-if="isSuperAdmin">
+                <NavLink
+                    href="/settings/super"
+                    :active="$page.component === 'Super Admin'">
+                    SuperAdmin
                 </NavLink>
             </li>
             <li v-if="isLoggedIn">
